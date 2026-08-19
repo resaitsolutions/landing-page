@@ -1,0 +1,31 @@
+schema: spec-driven
+
+context: |
+  Project: Skilleate landing page (marketing site).
+  Stack: not yet chosen — repo currently has no application code, only
+  methodology/tooling scaffolding (OpenSpec, design-skill kit). The first
+  real proposal in this repo should pick and justify the stack.
+  Delivery model: trunk-based on `main`. Every non-trivial change is two
+  branches, two PRs: `proposal/<change-id>` (spec + design + tasks, zero
+  code) merges first, then `feat/<change-id>` (implementation) merges
+  second. See AGENTS.md for the full workflow, gate table, and
+  verification rules — that file is the single source of truth; this
+  block only orients the artifact-generation tooling.
+  Current gate: C2 (content/styling changes on the static site are
+  authorized today). C3 (third-party integrations: forms, analytics,
+  CMS) and C4 (production domain/hosting) are NOT authorized without a
+  separate, explicit approval recorded in the proposal.
+  Tracking: one GitHub issue per change, linked from proposal.md.
+  Reviewer: rafael-quintero-rs (see .github/CODEOWNERS).
+
+rules:
+  proposal:
+    - "State the exact gate this change belongs to (C1/C2/C3/C4, see AGENTS.md). If it requires a gate not authorized today, stop and escalate instead of writing the proposal."
+    - "Include a `## Tracking Issue` line once the issue exists."
+    - "List at least one rejected alternative with a reason for any change touching third-party integrations or the site's access surface."
+  design:
+    - "Specs stay behavior-only (Given/When/Then); the 'how' lives here, not in specs."
+    - "Document risks/trade-offs explicitly, not just the chosen approach."
+  tasks:
+    - "One checklist item per capability the design/specs describe — nothing checked without being implemented, nothing implemented without being checked."
+    - "Any task touching a real credential, host, or live infra is flagged inline and requires an explicit go-ahead before execution."
