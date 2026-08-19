@@ -3,29 +3,28 @@
 or the agent's own instruction surface.
 
 The kit forbids emoji in product UI (taste/design-taste.md) — this enforces it so it
-can't drift back. It also scans the files the AGENT reads on every run (CLAUDE.md,
+can't drift back. It also scans the files the AGENT reads on every run (AGENTS.md,
 the skills, component/workflow/content/accessibility specs): if those contain emoji,
 the model imitates them and emits emoji-laden output. Keeping the instruction surface
 emoji-free is what actually stops emoji in generated design systems.
-
-Usage:
-  python3 scripts/check_no_emoji.py                      # examples/ + taste/ + agent files
-  python3 scripts/check_no_emoji.py path/to/src ...
-Exit 0 = clean, 1 = an emoji/pictograph was found.
 """
 import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-# Scan product UI (examples), the taste doctrine, AND the agent's instruction surface —
-# the files the model loads and imitates. README is marketing/branding and is excluded.
+ROOT = Path(__file__).resolve().parent.parent          # .design-system/
+REPO_ROOT = ROOT.parent                                 # actual repo root
+# Scan the taste doctrine and knowledge-base specs (inside .design-system/), AND the
+# agent's instruction surface at the real repo root — the files the model loads and
+# imitates. README is marketing/branding and is excluded. `examples/` from the
+# original kit was never installed in this repo, so it is intentionally omitted.
 DEFAULT = [
-    ROOT / "examples", ROOT / "taste",
-    ROOT / "CLAUDE.md", ROOT / ".claude" / "skills",
+    ROOT / "taste",
     ROOT / "components", ROOT / "workflows", ROOT / "content",
     ROOT / "accessibility", ROOT / "frameworks",
     ROOT / "design-systems",
+    REPO_ROOT / "AGENTS.md",
+    REPO_ROOT / ".claude" / "skills",
 ]
 EXTS = {".md", ".mdx", ".html", ".htm", ".tsx", ".jsx", ".ts", ".js",
         ".vue", ".svelte", ".css", ".scss", ".astro", ".json"}
@@ -43,13 +42,31 @@ EMOJI = re.compile(
 )
 
 
+# Skills that are not part of this design-system kit (openspec's own generated
+# skills, and the unrelated review-pr methodology skill) are excluded — they
+# belong to a different tool/process and are not this kit's instruction surface.
+NON_KIT_SKILL_PREFIXES = ("openspec-", "review-pr")
+
+
+def _is_non_kit_skill(f):
+    parts = f.parts
+    if "skills" in parts:
+        skill_dir_idx = parts.index("skills") + 1
+        if skill_dir_idx < len(parts) and parts[skill_dir_idx].startswith(NON_KIT_SKILL_PREFIXES):
+            return True
+    return False
+
+
 def iter_files(paths):
     for p in paths:
         pp = Path(p)
         if pp.is_dir():
             for f in pp.rglob("*"):
-                if f.suffix in EXTS and "node_modules" not in f.parts:
-                    yield f
+                if f.suffix not in EXTS or "node_modules" in f.parts:
+                    continue
+                if _is_non_kit_skill(f):
+                    continue
+                yield f
         elif pp.is_file():
             yield pp
 
