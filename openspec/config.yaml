@@ -2,9 +2,16 @@ schema: spec-driven
 
 context: |
   Project: Skilleate landing page (marketing site).
-  Stack: not yet chosen — repo currently has no application code, only
-  methodology/tooling scaffolding (OpenSpec, design-skill kit). The first
-  real proposal in this repo should pick and justify the stack.
+  Stack: Nuxt. The first proposal that scaffolds the app states the
+  exact Nuxt version, module set, and rendering mode (static/SSR/
+  hybrid) in its `design.md`.
+  Design-system knowledge base (tokens, component specs, a11y specs,
+  taste doctrine, workflows, scripts) lives under `.design-system/`,
+  never at the repo root — Nuxt reserves root `components/` and
+  `content/` for its own auto-import/content-module conventions, so
+  the design-skill kit's same-named folders are namespaced one level
+  down to avoid collision. A bare `components/` or `content/` at the
+  repo root is always the real Nuxt app.
   Delivery model: trunk-based on `main`. Every non-trivial change is two
   branches, two PRs: `proposal/<change-id>` (spec + design + tasks, zero
   code) merges first, then `feat/<change-id>` (implementation) merges

@@ -146,13 +146,22 @@ generic template in any external methodology doc.
 
 ## 6. Repo conventions
 
-- Stack: not yet chosen. The first proposal that adds real site code
-  states and justifies the stack in its `design.md`.
-- Design system: token-first. See `tokens/`, `components/`,
-  `accessibility/`, `taste/` (installed design-skill kit) and
+- Stack: **Nuxt** (confirmed). The first proposal that scaffolds the
+  app states the exact Nuxt version, module set (e.g. Nuxt Content,
+  Nuxt Image), and rendering mode (static/SSR/hybrid) in its
+  `design.md`.
+- Design system: token-first. See `.design-system/tokens/`,
+  `.design-system/components/`, `.design-system/accessibility/`,
+  `.design-system/taste/` (installed design-skill kit) and
   `.omp/agents/designer.md` (project override of the `designer`
   subagent) for the mandatory token → component → page composition
   order and the anti-slop/accessibility bar.
+- The design-skill kit lives entirely under `.design-system/` — never
+  at the repo root — because Nuxt reserves root-level `components/`
+  (auto-import) and `content/` (Nuxt Content module) with their own
+  framework meaning. A bare `components/` or `content/` at the repo
+  root is always the real Nuxt app; the design-system's own specs by
+  the same name live one level down, under `.design-system/`.
 - Never commit secrets; extend `.env.example` when a stack introduces
   required variables.
 - Never log a full token/credential — identifiers only.

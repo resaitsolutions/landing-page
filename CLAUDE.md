@@ -25,7 +25,7 @@ When making any design decision, prioritize in this order:
 
 Never sacrifice a higher-priority concern for a lower one. Beautiful but inaccessible = broken. Consistent but confusing = wrong pattern.
 
-> **Taste serves tier 4 (Aesthetics).** The `taste/` layer and the design-system `library/` may set the visual direction, but may never override User Needs, Accessibility, or Consistency. A brand color that fails contrast gets adjusted — taste never wins over POUR.
+> **Taste serves tier 4 (Aesthetics).** The `.design-system/taste/` layer and the design-system `library/` may set the visual direction, but may never override User Needs, Accessibility, or Consistency. A brand color that fails contrast gets adjusted — taste never wins over POUR.
 
 ---
 
@@ -33,15 +33,15 @@ Never sacrifice a higher-priority concern for a lower one. Beautiful but inacces
 
 This governs every build/review from the **start**, not the end. Trust comes from reproducible gate output, not from assertions.
 
-> **ABSOLUTE: zero emoji in any output.** Never emit an emoji or decorative pictograph (magnifier, check mark, warning sign, colored circles, smiley faces, ballot boxes, dingbat ticks/crosses, and the like) in generated UI, code, JSON, copy, comments, commit messages, or chat — not as an icon, a bullet, a status dot, a rating face, or "polish." Emoji are the number-one tell of machine-generated slop. Every glyph that would be an emoji is instead either a **lucide icon** (inline SVG / `<use href="#i-name">`, `currentColor`) or **plain words** ("Warning:", "(pass)", "Search"). This is not style — it is a hard gate: `python3 scripts/check_no_emoji.py` scans product UI, the taste docs, AND this instruction surface (CLAUDE.md, skills, specs); any emoji fails the build. The only Unicode allowed in diagrams is arrows and box-drawing.
+> **ABSOLUTE: zero emoji in any output.** Never emit an emoji or decorative pictograph (magnifier, check mark, warning sign, colored circles, smiley faces, ballot boxes, dingbat ticks/crosses, and the like) in generated UI, code, JSON, copy, comments, commit messages, or chat — not as an icon, a bullet, a status dot, a rating face, or "polish." Emoji are the number-one tell of machine-generated slop. Every glyph that would be an emoji is instead either a **lucide icon** (inline SVG / `<use href="#i-name">`, `currentColor`) or **plain words** ("Warning:", "(pass)", "Search"). This is not style — it is a hard gate: `python3 .design-system/scripts/check_no_emoji.py` scans product UI, the taste docs, AND this instruction surface (CLAUDE.md, skills, specs); any emoji fails the build. The only Unicode allowed in diagrams is arrows and box-drawing.
 
 1. **Never state a number you did not measure.** Any contrast ratio, "WCAG pass", "100%", or "all states OK" must come from actually running a gate and reporting its real output — never from reasoning or memory. If you haven't run it, say "not verified yet."
-2. **Verify ALL states, not just resting.** A button that looks fine at rest can fail on hover/focus/active (CSS specificity traps). For any rendered HTML, run `node scripts/verify_states.mjs <file> [--dark]` (real computed contrast in default/hover/focus) — not only `measure_render.mjs`.
-3. **Run the one-command gate before reporting done:** `node scripts/accuracy_report.mjs` (= tokens + contrast + spec + no-hardcode + theme-refs + no-emoji + real-render WCAG + state-aware, light & dark). Report the actual `N/N` line. It is all-or-nothing.
+2. **Verify ALL states, not just resting.** A button that looks fine at rest can fail on hover/focus/active (CSS specificity traps). For any rendered HTML, run `node .design-system/scripts/verify_states.mjs <file> [--dark]` (real computed contrast in default/hover/focus) — not only `measure_render.mjs`.
+3. **Run the one-command gate before reporting done:** `node .design-system/scripts/accuracy_report.mjs` (= tokens + contrast + spec + no-hardcode + theme-refs + no-emoji + real-render WCAG + state-aware, light & dark). Report the actual `N/N` line. It is all-or-nothing.
 4. **Build with the gates, not after.** Generate against the rules, then gate; if a gate fails, fix and re-run until green. Do not announce success between failures.
 5. **Render and LOOK — gates don't prove pixels.** The contrast/axe gates pass while the UI is still visibly broken: a checkbox that won't toggle, a dash stuck at the bottom of its box, a checkmark and dash of mismatched weight, an answer panel showing a grey "band", unequal widths, no expand animation. For any component, screenshot the harness (transitions off, pointer parked off it) and inspect every state AND after interaction — and click each control to assert the state actually changed. See `design-component` skill → "RENDER AND LOOK".
-6. **Responsive is gated too.** `node scripts/verify_responsive.mjs <file|dir>` — no horizontal overflow at 280/320/414px. Mobile-first; a fixed-px width that can't shrink is a bug.
-7. **Honest scope.** These gates prove *objective correctness* (token-consistency, accessibility, no drift). They do **not** prove subjective taste/beauty — say so; pair taste with `scripts/taste_audit.mjs` + human review, and never claim auto-100% on aesthetics.
+6. **Responsive is gated too.** `node .design-system/scripts/verify_responsive.mjs <file|dir>` — no horizontal overflow at 280/320/414px. Mobile-first; a fixed-px width that can't shrink is a bug.
+7. **Honest scope.** These gates prove *objective correctness* (token-consistency, accessibility, no drift). They do **not** prove subjective taste/beauty — say so; pair taste with `.design-system/scripts/taste_audit.mjs` + human review, and never claim auto-100% on aesthetics.
 
 > If you're about to type a quality number, stop: did a gate just produce it? If not, run the gate.
 > If you're about to say a component "looks right", stop: did you screenshot it and click it? If not, render it.
@@ -54,27 +54,27 @@ Match the request to the files to load (and the runnable skill, invocable via `/
 
 | Request | Skill | Load |
 |---------|-------|------|
-| Generate/extend/validate tokens, palettes, theming | `design-tokens` | `tokens/*.json`, "Token System"; `scripts/validate_tokens.py` |
-| Design a component spec | `design-component` | `components/*`, `accessibility/aria-patterns.md`, `tokens/*`; `scripts/scaffold_component.py` |
-| Generate code in any framework | `design-code` | `frameworks/adapter-protocol.md` → `frameworks/` + `frameworks/adapters/*`, `components/*` |
-| Review / audit / score a design | `design-review` | `workflows/design-review.md`, `taste/design-taste.md` |
-| Accessibility / WCAG / contrast check | `a11y-audit` | `accessibility/*`; `scripts/contrast.py` |
-| Apply a look / vibe / brand feel | `apply-aesthetic` | `taste/aesthetic-systems.md`, `design-systems/library/*`; `scripts/design_systems.py` |
-| Reference image / screenshot / mockup → matching code | `image-to-code` | `taste/*`, `design-tokens` + `design-code`; `scripts/measure_render.mjs`, `scripts/taste_audit.mjs` |
-| Build a brand design system / foundation from scratch | `brandkit` | "Token System" + "Color Generation", `taste/aesthetic-systems.md`; `scripts/validate_contrast.py` |
-| Improve/modernize an existing UI | `redesign` | `workflows/redesign-audit.md`, `taste/*` |
-| Map to/from another design system | `migrate-design-system` | `design-systems/interop-protocol.md` + `crosswalk.md` |
-| Prototype / wireframe / user flow / usability test | `prototype` | `workflows/prototyping.md` |
-| Write/review UI copy | `ux-writing` | `content/voice-tone.md` |
-| Versioning / contribution / deprecation / add-or-promote a component | `governance` | `workflows/governance.md`; `scripts/validate_tokens.py` |
-| Token build pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG) | `token-build` | `workflows/token-build.md`; `scripts/validate_tokens.py` |
-| Figma ↔ code sync, Variables, Code Connect, Figma MCP | `figma-integration` | `workflows/figma-integration.md` |
-| QA gates / CI / visual regression / prevent regressions | `design-qa` | `workflows/design-qa.md`; `scripts/validate_contrast.py`, `scripts/lint_hardcodes.py` |
-| Performance / Core Web Vitals / jank / layout shift | `performance` | `workflows/performance.md` |
-| Charts / data-viz / chart colors | `design-component` | `components/data-viz.md`, `tokens/data-viz.json` |
-| Calendar / Carousel / Tree | `design-component` | `components/data-display.md` |
-| Icon system / icon sizing / icon a11y | `design-component` | `components/icon-system.md` |
-| Cognitive a11y / i18n-RTL / low-vision / WCAG AAA | `a11y-audit` | `accessibility/cognitive.md`, `accessibility/i18n-rtl.md`, `accessibility/vision.md`, `accessibility/wcag-aaa.md` |
+| Generate/extend/validate tokens, palettes, theming | `design-tokens` | `.design-system/tokens/*.json`, "Token System"; `.design-system/scripts/validate_tokens.py` |
+| Design a component spec | `design-component` | `.design-system/components/*`, `.design-system/accessibility/aria-patterns.md`, `.design-system/tokens/*`; `.design-system/scripts/scaffold_component.py` |
+| Generate code in any framework | `design-code` | `.design-system/frameworks/adapter-protocol.md` → `.design-system/frameworks/` + `.design-system/frameworks/adapters/*`, `.design-system/components/*` |
+| Review / audit / score a design | `design-review` | `.design-system/workflows/design-review.md`, `.design-system/taste/design-taste.md` |
+| Accessibility / WCAG / contrast check | `a11y-audit` | `.design-system/accessibility/*`; `.design-system/scripts/contrast.py` |
+| Apply a look / vibe / brand feel | `apply-aesthetic` | `.design-system/taste/aesthetic-systems.md` (the 138-system `design-systems/library/*` catalog itself is not installed in this repo); `.design-system/scripts/design_systems.py` |
+| Reference image / screenshot / mockup → matching code | `image-to-code` | `.design-system/taste/*`, `design-tokens` + `design-code`; `.design-system/scripts/measure_render.mjs`, `.design-system/scripts/taste_audit.mjs` |
+| Build a brand design system / foundation from scratch | `brandkit` | "Token System" + "Color Generation", `.design-system/taste/aesthetic-systems.md`; `.design-system/scripts/validate_contrast.py` |
+| Improve/modernize an existing UI | `redesign` | `.design-system/workflows/redesign-audit.md`, `.design-system/taste/*` |
+| Map to/from another design system | `migrate-design-system` | `.design-system/design-systems/interop-protocol.md` + `crosswalk.md` |
+| Prototype / wireframe / user flow / usability test | `prototype` | `.design-system/workflows/prototyping.md` |
+| Write/review UI copy | `ux-writing` | `.design-system/content/voice-tone.md` |
+| Versioning / contribution / deprecation / add-or-promote a component | `governance` | `.design-system/workflows/governance.md`; `.design-system/scripts/validate_tokens.py` |
+| Token build pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG) | `token-build` | `.design-system/workflows/token-build.md`; `.design-system/scripts/validate_tokens.py` |
+| Figma ↔ code sync, Variables, Code Connect, Figma MCP | `figma-integration` | `.design-system/workflows/figma-integration.md` |
+| QA gates / CI / visual regression / prevent regressions | `design-qa` | `.design-system/workflows/design-qa.md`; `.design-system/scripts/validate_contrast.py`, `.design-system/scripts/lint_hardcodes.py` |
+| Performance / Core Web Vitals / jank / layout shift | `performance` | `.design-system/workflows/performance.md` |
+| Charts / data-viz / chart colors | `design-component` | `.design-system/components/data-viz.md`, `.design-system/tokens/data-viz.json` |
+| Calendar / Carousel / Tree | `design-component` | `.design-system/components/data-display.md` |
+| Icon system / icon sizing / icon a11y | `design-component` | `.design-system/components/icon-system.md` |
+| Cognitive a11y / i18n-RTL / low-vision / WCAG AAA | `a11y-audit` | `.design-system/accessibility/cognitive.md`, `.design-system/accessibility/i18n-rtl.md`, `.design-system/accessibility/vision.md`, `.design-system/accessibility/wcag-aaa.md` |
 
 ---
 
@@ -86,21 +86,21 @@ Build from small to large: **Atoms → Molecules → Organisms → Templates →
 - Molecules combine atoms for a task (Form Field = Label + Input + Error)
 - Organisms are complex sections (Header, Data Table, Modal)
 - Templates define page-level layout (Dashboard, Auth, Settings)
-- Reference: `components/atoms.md`, `components/molecules.md`, `components/organisms.md`, `components/templates.md`
+- Reference: `.design-system/components/atoms.md`, `.design-system/components/molecules.md`, `.design-system/components/organisms.md`, `.design-system/components/templates.md`
 
 ### Design Thinking
 Follow the double diamond: **Discover → Define → Develop → Deliver**
 - Diverge before converging — explore multiple solutions before committing
-- Validate at every fidelity level (see `workflows/prototyping.md`)
-- User research is not optional — see the usability testing script in `workflows/prototyping.md`
+- Validate at every fidelity level (see `.design-system/workflows/prototyping.md`)
+- User research is not optional — see the usability testing script in `.design-system/workflows/prototyping.md`
 
 ### Inclusive Design
 Design for the edges, and the center benefits:
-- WCAG 2.2 AA is the **minimum**, not the goal — see `accessibility/wcag-checklist.md`
+- WCAG 2.2 AA is the **minimum**, not the goal — see `.design-system/accessibility/wcag-checklist.md`
 - Keyboard navigation is not an afterthought — it's designed first
 - Color is never the only way to convey information
 - Target sizes: 24×24px minimum (WCAG 2.5.8), 44×44px recommended for primary actions
-- See ARIA implementation patterns in `accessibility/aria-patterns.md`
+- See ARIA implementation patterns in `.design-system/accessibility/aria-patterns.md`
 
 ### Progressive Disclosure
 Show only what's needed at each step:
@@ -134,20 +134,20 @@ Show only what's needed at each step:
 - **Component** — Scoped to specific components. Used in component implementations.
 
 All tokens use **DTCG format** (Design Tokens Community Group) with `$type`/`$value` properties. See:
-- `tokens/colors.json` — 3-tier color system with 6 hues × 11 shades + semantic + component + dark mode
-- `tokens/typography.json` — Major Third (1.25) modular scale + composite text styles
-- `tokens/spacing.json` — 4px base unit scale + semantic spacing aliases
-- `tokens/shadows.json` — 5-level elevation + inner + colored + focus ring
-- `tokens/borders.json` — Radius scale + semantic radii + width scale
-- `tokens/breakpoints.json` — Mobile-first breakpoints + container widths + grid + z-index
-- `tokens/motion.json` — Duration scale + easing curves + transition presets + keyframes + reduced-motion strategy
-- `tokens/gradients.json` — Semantic gradient presets (brand, surface, feedback, accent)
-- `tokens/opacity.json` — Alpha scale (disabled, hover/pressed/selected overlays, scrim)
-- `tokens/blur.json` — Backdrop / frosted-glass blur scale
-- `tokens/sizing.json` — Control size scale + icon sizes + aspect ratios
-- `tokens/states.json` — Semantic interaction-state tokens for the 8 component states
-- `tokens/theming.json` — Multi-brand theme override map + density modes (compact/default/spacious)
-- `tokens/data-viz.json` — Color-blind-aware chart palette (categorical/sequential/diverging) + axis/grid/tooltip tokens
+- `.design-system/tokens/colors.json` — 3-tier color system with 6 hues × 11 shades + semantic + component + dark mode
+- `.design-system/tokens/typography.json` — Major Third (1.25) modular scale + composite text styles
+- `.design-system/tokens/spacing.json` — 4px base unit scale + semantic spacing aliases
+- `.design-system/tokens/shadows.json` — 5-level elevation + inner + colored + focus ring
+- `.design-system/tokens/borders.json` — Radius scale + semantic radii + width scale
+- `.design-system/tokens/breakpoints.json` — Mobile-first breakpoints + container widths + grid + z-index
+- `.design-system/tokens/motion.json` — Duration scale + easing curves + transition presets + keyframes + reduced-motion strategy
+- `.design-system/tokens/gradients.json` — Semantic gradient presets (brand, surface, feedback, accent)
+- `.design-system/tokens/opacity.json` — Alpha scale (disabled, hover/pressed/selected overlays, scrim)
+- `.design-system/tokens/blur.json` — Backdrop / frosted-glass blur scale
+- `.design-system/tokens/sizing.json` — Control size scale + icon sizes + aspect ratios
+- `.design-system/tokens/states.json` — Semantic interaction-state tokens for the 8 component states
+- `.design-system/tokens/theming.json` — Multi-brand theme override map + density modes (compact/default/spacious)
+- `.design-system/tokens/data-viz.json` — Color-blind-aware chart palette (categorical/sequential/diverging) + axis/grid/tooltip tokens
 
 ### Naming Convention
 ```
@@ -158,7 +158,7 @@ Examples: `semantic.text.primary`, `component.button.primary-bg-hover`, `semanti
 ### Dark Mode Strategy
 - Primitives stay the same — dark mode swaps at the **semantic** level
 - Light mode: light surfaces + dark text. Dark mode: dark surfaces + light text.
-- Override map defined in `tokens/colors.json` → `dark` section
+- Override map defined in `.design-system/tokens/colors.json` → `dark` section
 - Implementation: CSS custom properties swapped via `[data-theme="dark"]` or `prefers-color-scheme`
 - Test both modes for every component state
 
@@ -179,12 +179,12 @@ Examples: `semantic.text.primary`, `component.button.primary-bg-hover`, `semanti
 2. **Feedback colors** — success (green), warning (amber), error (red), info (blue)
 3. **Interactive colors** — all clickable elements use `action.primary` or `text.link`
 4. **Limit palette** — 1 primary, 1 destructive, neutrals. Use accent colors sparingly.
-5. **Colored shadows** — only on hover states for emphasis (see `tokens/shadows.json` → `colored`)
+5. **Colored shadows** — only on hover states for emphasis (see `.design-system/tokens/shadows.json` → `colored`)
 6. **Token BY INTENT (non-negotiable)** — pick the token whose *meaning* matches the action, not just any token that resolves:
    - **Destructive** actions (Delete, Remove, Revoke) → `action.destructive` / `component.button.destructive-bg` — **NEVER** `action.primary`. The same destructive action uses the **same** danger variant **everywhere** (trigger button AND its confirm-modal button — never red in one place and blue in another).
    - **Primary** = the one main affirmative action; **secondary** = neutral (transparent/outline, dark text — **never a colored fill**, so no dark-text-on-blue); **danger** = destructive.
    - Consistency rule: one action role → one variant across all pages. A blue "Delete" is a bug.
-7. **No emoji, anywhere — not just as icons** (see the ABSOLUTE banner under Verification Protocol). Emoji are inconsistent across platforms and read as machine-generated slop. Never use one as an icon, bullet, status dot, rating face, section marker, or decoration — in UI, code, JSON, copy, comments, or commit messages. Use a real icon set (default: **lucide**) as inline SVG with `currentColor` via the Icon component (`components/icon-system.md`), or plain words. This includes JS that swaps button labels — swap the `<svg>`/icon, never inject an emoji string. Enforced by `scripts/check_no_emoji.py` (scans UI + taste + the agent instruction files).
+7. **No emoji, anywhere — not just as icons** (see the ABSOLUTE banner under Verification Protocol). Emoji are inconsistent across platforms and read as machine-generated slop. Never use one as an icon, bullet, status dot, rating face, section marker, or decoration — in UI, code, JSON, copy, comments, or commit messages. Use a real icon set (default: **lucide**) as inline SVG with `currentColor` via the Icon component (`.design-system/components/icon-system.md`), or plain words. This includes JS that swaps button labels — swap the `<svg>`/icon, never inject an emoji string. Enforced by `.design-system/scripts/check_no_emoji.py` (scans UI + taste + the agent instruction files).
 
 ### Color Generation (when creating new palettes)
 Use **OKLCH color space** for perceptually uniform shade scales:
@@ -196,9 +196,9 @@ Use **OKLCH color space** for perceptually uniform shade scales:
 ### Single-Theme Consistency (cross-page — non-negotiable)
 Every page, screen, and component in a project MUST render from **one shared token theme** — never a per-page palette or ad-hoc colors. This is what keeps a 50-screen product visually identical and themeable from one place.
 
-1. **One source of truth** — the project's `tokens/*.json` → a single CSS-variable layer (`:root` + `[data-theme="dark"]`) imported **once** at the app root. Every page references the same semantic tokens; none redefines colors.
-2. **No off-theme values** — zero hardcoded hex/px/timing in component/page code. Enforced by `scripts/lint_hardcodes.py` (the one allowed exception: adapter theme-config that maps our tokens *into* a 3rd-party API, e.g. MUI/Mantine).
-3. **Real WCAG, on the source** — the token theme itself passes WCAG 2.2 in **both** light and dark before any page ships. Enforced by `scripts/validate_contrast.py` (required text/action pairs fail the build; tertiary/decorative are advisory).
+1. **One source of truth** — the project's `.design-system/tokens/*.json` → a single CSS-variable layer (`:root` + `[data-theme="dark"]`) imported **once** at the app root. Every page references the same semantic tokens; none redefines colors.
+2. **No off-theme values** — zero hardcoded hex/px/timing in component/page code. Enforced by `.design-system/scripts/lint_hardcodes.py` (the one allowed exception: adapter theme-config that maps our tokens *into* a 3rd-party API, e.g. MUI/Mantine).
+3. **Real WCAG, on the source** — the token theme itself passes WCAG 2.2 in **both** light and dark before any page ships. Enforced by `.design-system/scripts/validate_contrast.py` (required text/action pairs fail the build; tertiary/decorative are advisory).
 4. **One CI enforces all of it** — `.github/workflows/ci.yml` runs `validate_tokens` + `validate_contrast` + `validate_component_spec` + `npm test` on every push/PR. A page that introduces drift, a contrast regression, or an off-theme color cannot merge.
 
 > Switching brand/theme = editing the token source once → every page updates. If a page "looks different," it's a bug: it bypassed the theme.
@@ -221,7 +221,7 @@ xs=12  sm=14  base=16  lg=18  xl=20  2xl=24  3xl=30  4xl=36  5xl=48  6xl=60  7xl
 6. **Line height** — Headings: tight (1.25). Body: normal (1.5). Caption: normal (1.5).
 7. **Font weight** — Regular (400) for body, Medium (500) for labels, Semibold (600) for headings, Bold (700) for page titles only
 
-See composite text styles in `tokens/typography.json` → `textStyle`.
+See composite text styles in `.design-system/tokens/typography.json` → `textStyle`.
 
 ---
 
@@ -239,7 +239,7 @@ All spacing values are multiples of 4px. The scale:
 3. **Consistent rhythm** — Establish a vertical rhythm and maintain it throughout the page
 4. **Semantic spacing** — Use purpose-named tokens (`card.padding`, `stack.lg`) over raw values
 
-See `tokens/spacing.json` for the full scale and semantic aliases.
+See `.design-system/tokens/spacing.json` for the full scale and semantic aliases.
 
 ---
 
@@ -257,10 +257,10 @@ Every component must have:
 ### Component References
 | Level | File | Contents |
 |-------|------|----------|
-| Atoms | `components/atoms.md` | Button, Input, Label, Icon, Badge, Avatar, Checkbox, Radio, Toggle, Tooltip |
-| Molecules | `components/molecules.md` | Form Field, Search Bar, Card, Navigation Item, Alert, Dropdown |
-| Organisms | `components/organisms.md` | Header, Sidebar, Form, Data Table, Modal, Drawer |
-| Templates | `components/templates.md` | Dashboard, Auth, Settings, List/Detail |
+| Atoms | `.design-system/components/atoms.md` | Button, Input, Label, Icon, Badge, Avatar, Checkbox, Radio, Toggle, Tooltip |
+| Molecules | `.design-system/components/molecules.md` | Form Field, Search Bar, Card, Navigation Item, Alert, Dropdown |
+| Organisms | `.design-system/components/organisms.md` | Header, Sidebar, Form, Data Table, Modal, Drawer |
+| Templates | `.design-system/components/templates.md` | Dashboard, Auth, Settings, List/Detail |
 
 ### State Requirements
 All interactive components must define these states:
@@ -294,36 +294,33 @@ All interactive components must define these states:
 - **3.3.8 Accessible Authentication** — No cognitive function tests; allow password managers
 
 ### Implementation Reference
-- Full checklist: `accessibility/wcag-checklist.md`
-- ARIA patterns for 19 components: `accessibility/aria-patterns.md`
-- Cognitive accessibility (load, plain language, memory, dyslexia, reduced-data): `accessibility/cognitive.md`
-- Internationalization & RTL (logical properties, mirroring, text expansion): `accessibility/i18n-rtl.md`
-- Vision (color blindness, low vision, high-contrast / forced-colors): `accessibility/vision.md`
-- AAA upgrade delta (when targeting the highest support level): `accessibility/wcag-aaa.md`
+- Full checklist: `.design-system/accessibility/wcag-checklist.md`
+- ARIA patterns for 19 components: `.design-system/accessibility/aria-patterns.md`
+- Cognitive accessibility (load, plain language, memory, dyslexia, reduced-data): `.design-system/accessibility/cognitive.md`
+- Internationalization & RTL (logical properties, mirroring, text expansion): `.design-system/accessibility/i18n-rtl.md`
+- Vision (color blindness, low vision, high-contrast / forced-colors): `.design-system/accessibility/vision.md`
+- AAA upgrade delta (when targeting the highest support level): `.design-system/accessibility/wcag-aaa.md`
 
 ---
 
 ## Framework Output Formats
 
-### React + Tailwind (primary web framework)
+### Vue 3 + Nuxt (primary framework for this project)
+- `<script setup lang="ts">`, Composition API throughout
+- Tokens mapped to CSS custom properties on `:root` (+ `[data-theme="dark"]`), consumed via scoped `<style>` or Tailwind
+- Component pattern: real app components live in the repo-root `components/` (Nuxt auto-import) — do not confuse with `.design-system/components/*`, which are specs/knowledge, not code
+- Runtime brand/density switching via `provide`/`inject` or a Pinia store
+- Nuxt Content module owns the repo-root `content/` directory for markdown-driven pages — again distinct from `.design-system/content/voice-tone.md`
+- Reference: `.design-system/frameworks/adapters/vue.md`
+
+### React + Tailwind (reference adapter, not this project's stack)
 - TypeScript + `forwardRef` + `cva` (class-variance-authority) + `cn()` utility
 - Tokens mapped to Tailwind v4 `@theme` CSS custom properties
-- Component pattern: `components/ui/[name].tsx`
-- Reference: `frameworks/react-tailwind.md`
+- Reference: `.design-system/frameworks/react-tailwind.md`
 
-### Next.js 15 (full-stack web)
-- App Router with route groups, layouts, loading/error boundaries
-- Server Components by default; `"use client"` pushed to leaf components
-- `next/font` for font loading, `next/image` for images
-- Server Actions for mutations
-- Reference: `frameworks/nextjs.md`
-
-### SwiftUI 6 (Apple platforms)
-- Tokens → Asset Catalogs + `Color.DS` / `Font.DS` / `Spacing` extensions
-- `ButtonStyle`, `ViewModifier` for component styling
-- `@ScaledMetric` for Dynamic Type, `@Environment(\.accessibilityReduceMotion)` for motion
-- `#if os()` for platform adaptation
-- Reference: `frameworks/swiftui.md`
+### Astro / CSS-in-JS (other installed web adapters)
+- `.design-system/frameworks/adapters/astro.md`, `.design-system/frameworks/adapters/css-in-js.md`
+- Next.js 15 App Router patterns are also kept as a cross-framework reference at `.design-system/frameworks/nextjs.md` (not this project's stack — Nuxt is)
 
 ### Output Rules
 When generating code for any framework:
@@ -333,8 +330,8 @@ When generating code for any framework:
 4. **Support dark mode** — Use semantic color tokens that auto-switch.
 5. **Responsive** — Mobile-first, breakpoint-aware.
 6. **Copy-paste ready** — Code should work with minimal adaptation.
-7. **Any framework** — Use `frameworks/adapter-protocol.md` for targets without a dedicated file; generate an adapter on demand.
-8. **Output completeness** — A partial output is a broken output. Deliver full files, never placeholders (`// ... rest unchanged`). If asked for N components/screens, deliver all N. Split at clean boundaries only when length forces it, and continue to completion. (See `workflows/redesign-audit.md`.)
+7. **Any framework** — Use `.design-system/frameworks/adapter-protocol.md` for targets without a dedicated file; generate an adapter on demand.
+8. **Output completeness** — A partial output is a broken output. Deliver full files, never placeholders (`// ... rest unchanged`). If asked for N components/screens, deliver all N. Split at clean boundaries only when length forces it, and continue to completion. (See `.design-system/workflows/redesign-audit.md`.)
 
 ---
 
@@ -366,10 +363,10 @@ Then findings:
 
 Severity levels: **Critical** (must fix before launch) → **Major** (fix this sprint) → **Minor** (fix when convenient) → **Enhancement** (backlog)
 
-Full rubric and process: `workflows/design-review.md`
+Full rubric and process: `.design-system/workflows/design-review.md`
 
 ### Heuristic Evaluation
-Apply Nielsen's 10 Usability Heuristics to every review. Flag violations with the heuristic number. See `workflows/design-review.md` for the full checklist.
+Apply Nielsen's 10 Usability Heuristics to every review. Flag violations with the heuristic number. See `.design-system/workflows/design-review.md` for the full checklist.
 
 ---
 
@@ -390,7 +387,7 @@ Never skip fidelity levels. Validate at each stage:
 - Card sorting → navigation structure
 - Tree testing → findability validation
 - Usability testing → task success rates (5 users catches 85% of issues)
-- See full methodology and scripts in `workflows/prototyping.md`
+- See full methodology and scripts in `.design-system/workflows/prototyping.md`
 
 ---
 
@@ -408,16 +405,16 @@ Before marking a design ready for development:
 ### Definition of Done
 A component is done when: functional (all variants, states, edge cases), visual (pixel-accurate, all tokens, responsive, dark mode), accessible (keyboard, screen reader, contrast, target size), code quality (TypeScript, no `any`, forwardRef, cva), and tested (unit, visual regression, a11y automated, manual screen reader).
 
-Full workflow: `workflows/design-to-code.md`
+Full workflow: `.design-system/workflows/design-to-code.md`
 
 ---
 
 ## Brand Consistency
 
 ### Design Taste & Aesthetic Direction
-- **Anti-slop doctrine** — every output must beat the statistical defaults that make UI look machine-generated. See `taste/design-taste.md` (banned defaults, the Variance Mandate, typographic/spatial/color taste, pre-flight aesthetic check).
-- **Aesthetic systems** — pick an archetype or a named system (138 specs) from `taste/aesthetic-systems.md`; resolve it into tokens via the Library Contract; verify contrast after.
-- **Motion choreography** — compose motion with `taste/motion-choreography.md` (entrances, stagger, hover, overlays) on top of `tokens/motion.json`.
+- **Anti-slop doctrine** — every output must beat the statistical defaults that make UI look machine-generated. See `.design-system/taste/design-taste.md` (banned defaults, the Variance Mandate, typographic/spatial/color taste, pre-flight aesthetic check).
+- **Aesthetic systems** — pick an archetype or a named system (138 specs) from `.design-system/taste/aesthetic-systems.md`; resolve it into tokens via the Library Contract; verify contrast after.
+- **Motion choreography** — compose motion with `.design-system/taste/motion-choreography.md` (entrances, stagger, hover, overlays) on top of `.design-system/tokens/motion.json`.
 - Taste sharpens tier 4 only. Re-run accessibility checks after applying any direction.
 
 ### Motion Design
@@ -425,7 +422,7 @@ Full workflow: `workflows/design-to-code.md`
 - **Easing**: `ease-out` for entrances, `ease-in` for exits, `ease-in-out` for state changes
 - **Purpose**: Every animation guides attention, shows connection, or provides feedback
 - **Reduced motion**: Always respect `prefers-reduced-motion`. Replace with fade or instant.
-- All motion values are tokenized — use `tokens/motion.json` (duration scale, easing curves, transition presets, keyframes). Never hardcode timing or easing.
+- All motion values are tokenized — use `.design-system/tokens/motion.json` (duration scale, easing curves, transition presets, keyframes). Never hardcode timing or easing.
 
 ### Voice & Tone
 - **UI copy**: Clear, concise, actionable. Frontload the verb.
@@ -437,7 +434,7 @@ Full workflow: `workflows/design-to-code.md`
 - **Empty states**: Explain the value → guide to first action.
   - Good: "No projects yet. Create your first project to get started."
   - Avoid: "No data"
-- Full UX writing system — voice principles, tone spectrum, error/empty-state formulas, microcopy patterns, inclusive language, and a pre-ship checklist — in `content/voice-tone.md`.
+- Full UX writing system — voice principles, tone spectrum, error/empty-state formulas, microcopy patterns, inclusive language, and a pre-ship checklist — in `.design-system/content/voice-tone.md`.
 
 ---
 
@@ -445,12 +442,12 @@ Full workflow: `workflows/design-to-code.md`
 
 Keeping the system healthy at scale — governance, build, sync, QA, and performance:
 
-- **Governance** — versioning (SemVer for tokens/components), contribution path, deprecation policy, change communication: `workflows/governance.md`.
-- **Token build pipeline** — transform `tokens/*.json` (source of truth) → CSS vars / Tailwind `@theme` / iOS Asset Catalog / Android / Compose via Style Dictionary or Tokens Studio (DTCG): `workflows/token-build.md`.
-- **Figma integration** — token ↔ Figma Variable sync (3-tier collections + modes), Figma MCP usage, component parity: `workflows/figma-integration.md`.
-- **Design QA** — automated gates (token validation, axe a11y, visual regression across variants/states/themes/RTL) + manual a11y per release: `workflows/design-qa.md`.
-- **Performance** — Core Web Vitals (LCP/INP/CLS) budgets, loading/code-split strategy, layout-shift and animation-perf rules: `workflows/performance.md`.
-- **Icon system** — grid/stroke/sizing tokens, delivery, and a11y for icons as a governed subsystem: `components/icon-system.md`.
+- **Governance** — versioning (SemVer for tokens/components), contribution path, deprecation policy, change communication: `.design-system/workflows/governance.md`.
+- **Token build pipeline** — transform `.design-system/tokens/*.json` (source of truth) → CSS vars / Tailwind `@theme` / iOS Asset Catalog / Android / Compose via Style Dictionary or Tokens Studio (DTCG): `.design-system/workflows/token-build.md`.
+- **Figma integration** — token ↔ Figma Variable sync (3-tier collections + modes), Figma MCP usage, component parity: `.design-system/workflows/figma-integration.md`.
+- **Design QA** — automated gates (token validation, axe a11y, visual regression across variants/states/themes/RTL) + manual a11y per release: `.design-system/workflows/design-qa.md`.
+- **Performance** — Core Web Vitals (LCP/INP/CLS) budgets, loading/code-split strategy, layout-shift and animation-perf rules: `.design-system/workflows/performance.md`.
+- **Icon system** — grid/stroke/sizing tokens, delivery, and a11y for icons as a governed subsystem: `.design-system/components/icon-system.md`.
 
 ---
 
@@ -473,93 +470,104 @@ When responding to user requests, match the output format to the request type:
 ## File Reference Map
 
 ```
-tokens/                   ← Design tokens (DTCG $type/$value)
-├── colors.json          ← Color system: primitive → semantic → component + dark mode
-├── typography.json       ← Type scale, fonts, composite text styles
-├── spacing.json          ← 4px base unit scale + semantic spacing
-├── shadows.json          ← 5-level elevation + inner + colored + focus ring
-├── borders.json          ← Radius + width scale + semantic radii
-├── breakpoints.json      ← Breakpoints + containers + grid + z-index
-├── motion.json           ← Durations + easings + transition presets + keyframes + reduced-motion
-├── gradients.json        ← Semantic gradient presets
-├── opacity.json          ← Alpha scale (disabled, overlays, scrim)
-├── blur.json             ← Backdrop / frosted-glass blur scale
-├── sizing.json           ← Control sizes + icon sizes + aspect ratios
-├── states.json           ← Semantic interaction-state tokens (the 8 states)
-├── theming.json          ← Multi-brand theme overrides + density modes
-└── data-viz.json         ← Chart palette (categorical/sequential/diverging) + axis/grid
+.design-system/            ← Design-system knowledge base (this repo's convention;
+                              kept out of the root so it never collides with Nuxt's
+                              own components/ and content/ directories)
+├── tokens/                 ← Design tokens (DTCG $type/$value)
+│   ├── colors.json          ← Color system: primitive → semantic → component + dark mode
+│   ├── typography.json      ← Type scale, fonts, composite text styles
+│   ├── spacing.json         ← 4px base unit scale + semantic spacing
+│   ├── shadows.json         ← 5-level elevation + inner + colored + focus ring
+│   ├── borders.json         ← Radius + width scale + semantic radii
+│   ├── breakpoints.json     ← Breakpoints + containers + grid + z-index
+│   ├── motion.json          ← Durations + easings + transition presets + keyframes + reduced-motion
+│   ├── gradients.json       ← Semantic gradient presets
+│   ├── opacity.json         ← Alpha scale (disabled, overlays, scrim)
+│   ├── blur.json            ← Backdrop / frosted-glass blur scale
+│   ├── sizing.json          ← Control sizes + icon sizes + aspect ratios
+│   ├── states.json          ← Semantic interaction-state tokens (the 8 states)
+│   ├── theming.json         ← Multi-brand theme overrides + density modes
+│   └── data-viz.json        ← Chart palette (categorical/sequential/diverging) + axis/grid
+│
+├── taste/                  ← Aesthetic judgment layer (serves the Aesthetics tier)
+│   ├── design-taste.md      ← Anti-slop doctrine, banned defaults, pre-flight aesthetic check
+│   ├── aesthetic-systems.md ← Archetypes (the 138-system library/ itself was not installed here)
+│   └── motion-choreography.md ← Scroll/hover/overlay motion grammar + reduced-motion parity
+│
+├── design-systems/         ← Interop only (no library/ — not installed in this repo)
+│   ├── interop-protocol.md  ← Map to/from ANY design system (crosswalk method)
+│   └── crosswalk.md         ← Curated tables: Material 3, Apple HIG, Fluent, Carbon, shadcn, Radix,
+│                                Ant, Polaris, Primer, Atlassian, Bootstrap
+│
+├── content/
+│   └── voice-tone.md       ← Voice & tone, UX writing, error/empty-state copy, microcopy patterns
+│
+├── components/             ← Component SPECS (knowledge base) — distinct from the
+│                              app's real Nuxt components/ directory at the repo root
+│   ├── atoms.md             ← Button, Input, Label, Icon, Badge, Avatar, Checkbox, Radio, Toggle, Tooltip
+│   ├── molecules.md         ← Form Field, Search Bar, Card, Navigation Item, Alert, Dropdown
+│   ├── organisms.md         ← Header, Sidebar, Form, Data Table, Modal, Drawer
+│   ├── templates.md         ← Dashboard, Auth, Settings, List/Detail layouts
+│   ├── navigation.md        ← Tabs, Breadcrumb, Pagination, Stepper, Menu
+│   ├── feedback.md          ← Toast, Banner, Skeleton, Progress, Empty State
+│   ├── forms-advanced.md    ← Combobox, Select, Slider, Date Picker, File Upload
+│   ├── overlays.md          ← Popover, Command Palette, Divider
+│   ├── data-display.md      ← Calendar, Carousel, Tree
+│   ├── data-viz.md          ← Charts: Bar, Line/Area, Pie/Donut, Sparkline, Scatter
+│   └── icon-system.md       ← Icon grid/stroke/sizing tokens + delivery + a11y
+│
+├── accessibility/
+│   ├── wcag-checklist.md    ← WCAG 2.2 AA/AAA checklist by POUR principle
+│   ├── aria-patterns.md     ← WAI-ARIA patterns for 19 components
+│   ├── cognitive.md         ← Cognitive load, plain language, memory/attention, dyslexia, reduced-data
+│   ├── i18n-rtl.md          ← Logical properties, RTL mirroring, text expansion, locale formatting
+│   ├── vision.md            ← Color blindness, low vision, high-contrast / forced-colors
+│   └── wcag-aaa.md          ← AAA upgrade delta (7:1 contrast, 44px targets, no-timing…)
+│
+├── workflows/
+│   ├── design-review.md     ← Review rubric, Nielsen heuristics, audit process
+│   ├── design-to-code.md    ← Handoff workflow, state docs, edge cases, definition of done
+│   ├── prototyping.md       ← 5-level fidelity ladder, user journey mapping, usability testing
+│   ├── redesign-audit.md    ← Audit-first redesign + output completeness
+│   ├── governance.md        ← Versioning (SemVer), contribution, deprecation, change comms
+│   ├── token-build.md       ← Token pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG)
+│   ├── figma-integration.md ← Token↔Variable sync, Figma MCP, component parity
+│   ├── design-qa.md         ← Visual regression + a11y CI gates (axe, snapshots)
+│   └── performance.md       ← Core Web Vitals, loading, CLS, animation perf
+│
+├── frameworks/              ← Web adapters only (native-platform adapters — SwiftUI,
+│                                Flutter, Jetpack Compose, React Native — were not
+│                                installed; this is a Nuxt/web project)
+│   ├── adapter-protocol.md  ← Universal contract to target ANY framework
+│   ├── react-tailwind.md    ← React 19 + Tailwind v4 + TypeScript + cva patterns
+│   ├── nextjs.md            ← Next.js 15 App Router patterns (reference only — this
+│                                project targets Nuxt; treat as adapter-protocol example)
+│   └── adapters/            ← astro.md, css-in-js.md (only the web-relevant ones kept)
+│
+└── scripts/                 ← validate_tokens.py · contrast.py · validate_contrast.py (batch WCAG, light+dark)
+                                · validate_component_spec.py · lint_hardcodes.py (hex/px/ms + Tailwind palette + font)
+                                · validate_theme_refs.py (every var(--…) resolves to the theme) · lint_taste.py
+                                · measure_render.mjs (REAL headless-render WCAG gate — true computed contrast, light+dark)
+                                · verify_states.mjs (state-aware WCAG — every element in default/hover/focus)
+                                · axe_audit.mjs (axe-core WCAG 2.2 A/AA — ARIA, labels, landmarks, roles)
+                                · verify_focustrap.mjs (modal focus trap: Tab stays in, Escape closes, focus returns)
+                                · verify_rtl.mjs (RTL mirror — no logical-property breakage) · build_tokens.mjs (DTCG → CSS vars)
+                                · verify_responsive.mjs (no horizontal overflow at 280/320/414px — every harness)
+                                · taste_audit.mjs (render-based taste signal: type-scale, uniform repetition, measure, palette)
+                                · accuracy_report.mjs (one-command 100%-or-fail: all gates + real render + states)
+                                · design_systems.py · scaffold_component.py
 
-taste/                    ← Aesthetic judgment layer (serves the Aesthetics tier)
-├── design-taste.md       ← Anti-slop doctrine, banned defaults, pre-flight aesthetic check
-├── aesthetic-systems.md  ← Archetypes + catalog of 138 named design systems
-└── motion-choreography.md← Scroll/hover/overlay motion grammar + reduced-motion parity
+.claude/skills/             ← Runnable skills (invoke via /name), NOT moved — the harness
+                                only discovers skills at exactly .claude/skills/<name>/SKILL.md:
+                                design-tokens, design-component, design-code, design-review,
+                                a11y-audit, apply-aesthetic, redesign, migrate-design-system,
+                                prototype, ux-writing, governance, token-build,
+                                figma-integration, design-qa, performance, image-to-code, brandkit
+                                (plus openspec-* and review-pr, unrelated to this kit)
 
-design-systems/           ← Interop + brand library
-├── interop-protocol.md   ← Map to/from ANY design system (crosswalk method)
-├── crosswalk.md          ← Curated tables: Material 3, Apple HIG, Fluent, Carbon, shadcn, Radix,
-│                            Ant, Polaris, Primer, Atlassian, Bootstrap
-└── library/<name>/DESIGN.md ← 138 brand-grade design-system specs
-
-content/
-└── voice-tone.md         ← Voice & tone, UX writing, error/empty-state copy, microcopy patterns
-
-components/
-├── atoms.md              ← Button, Input, Label, Icon, Badge, Avatar, Checkbox, Radio, Toggle, Tooltip
-├── molecules.md          ← Form Field, Search Bar, Card, Navigation Item, Alert, Dropdown
-├── organisms.md          ← Header, Sidebar, Form, Data Table, Modal, Drawer
-├── templates.md          ← Dashboard, Auth, Settings, List/Detail layouts
-├── navigation.md         ← Tabs, Breadcrumb, Pagination, Stepper, Menu
-├── feedback.md           ← Toast, Banner, Skeleton, Progress, Empty State
-├── forms-advanced.md     ← Combobox, Select, Slider, Date Picker, File Upload
-├── overlays.md           ← Popover, Command Palette, Divider
-├── data-display.md       ← Calendar, Carousel, Tree
-├── data-viz.md           ← Charts: Bar, Line/Area, Pie/Donut, Sparkline, Scatter
-└── icon-system.md        ← Icon grid/stroke/sizing tokens + delivery + a11y
-
-accessibility/
-├── wcag-checklist.md     ← WCAG 2.2 AA/AAA checklist by POUR principle
-├── aria-patterns.md      ← WAI-ARIA patterns for 19 components
-├── cognitive.md          ← Cognitive load, plain language, memory/attention, dyslexia, reduced-data
-├── i18n-rtl.md           ← Logical properties, RTL mirroring, text expansion, locale formatting
-├── vision.md             ← Color blindness, low vision, high-contrast / forced-colors
-└── wcag-aaa.md           ← AAA upgrade delta (7:1 contrast, 44px targets, no-timing…)
-
-workflows/
-├── design-review.md      ← Review rubric, Nielsen heuristics, audit process
-├── design-to-code.md     ← Handoff workflow, state docs, edge cases, definition of done
-├── prototyping.md        ← 5-level fidelity ladder, user journey mapping, usability testing
-├── redesign-audit.md     ← Audit-first redesign + output completeness
-├── governance.md         ← Versioning (SemVer), contribution, deprecation, change comms
-├── token-build.md        ← Token pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG)
-├── figma-integration.md  ← Token↔Variable sync, Figma MCP, component parity
-├── design-qa.md          ← Visual regression + a11y CI gates (axe, snapshots)
-└── performance.md        ← Core Web Vitals, loading, CLS, animation perf
-
-frameworks/
-├── adapter-protocol.md   ← Universal contract to target ANY framework
-├── react-tailwind.md     ← React 19 + Tailwind v4 + TypeScript + cva patterns
-├── nextjs.md             ← Next.js 15 App Router patterns
-├── swiftui.md            ← SwiftUI 6 + Dynamic Type + platform adaptation
-└── adapters/             ← vue, svelte, angular, solid, web-components-lit, qwik, astro,
-                            mui, mantine, chakra, bootstrap,
-                            react-native, flutter, jetpack-compose, vanilla-css, css-in-js
-
-.claude/skills/           ← Runnable skills (invoke via /name): design-tokens, design-component,
-                            design-code, design-review, a11y-audit, apply-aesthetic, redesign,
-                            migrate-design-system, prototype, ux-writing, governance, token-build,
-                            figma-integration, design-qa, performance, image-to-code, brandkit
-scripts/                  ← validate_tokens.py · contrast.py · validate_contrast.py (batch WCAG, light+dark)
-                            · validate_component_spec.py · lint_hardcodes.py (hex/px/ms + Tailwind palette + font)
-                            · validate_theme_refs.py (every var(--…) resolves to the theme) · lint_taste.py
-                            · measure_render.mjs (REAL headless-render WCAG gate — true computed contrast, light+dark)
-                            · verify_states.mjs (state-aware WCAG — every element in default/hover/focus)
-                            · axe_audit.mjs (axe-core WCAG 2.2 A/AA — ARIA, labels, landmarks, roles)
-                            · verify_focustrap.mjs (modal focus trap: Tab stays in, Escape closes, focus returns)
-                            · verify_rtl.mjs (RTL mirror — no logical-property breakage) · build_tokens.mjs (DTCG → CSS vars)
-                            · verify_responsive.mjs (no horizontal overflow at 280/320/414px — every harness)
-                            · taste_audit.mjs (render-based taste signal: type-scale, uniform repetition, measure, palette)
-                            · accuracy_report.mjs (one-command 100%-or-fail: all gates + real render + states)
-                            · design_systems.py · scaffold_component.py
-.github/workflows/        ← ci.yml (quality gates: tokens + contrast + spec + npm test on push/PR)
-                            · release.yml (auto GitHub Release + npm publish on tag)
+components/                 ← The REAL Nuxt app's components/ (auto-imported), once
+content/                        the app exists. Distinct from .design-system/components/
+pages/                           and .design-system/content/ above — do not confuse
+...                              the two when reading a bare "components/" reference.
 ```
+
