@@ -1,6 +1,6 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$description": "Semantic interaction-state tokens. Centralizes the visual treatment of the 8 component states (CLAUDE.md) so they are consistent across every component and framework.",
+  "$description": "Semantic interaction-state tokens. Centralizes the visual treatment of the 8 component states (AGENTS.md §9.9) so they are consistent across every component and framework.",
 
   "disabled": {
     "opacity": { "$type": "number", "$value": "{opacity.disabled}", "$description": "→ tokens/opacity.json" },
