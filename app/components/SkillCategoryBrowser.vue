@@ -45,7 +45,7 @@ const levelColor: Record<string, 'neutral' | 'primary' | 'warning'> = {
       :description="track.detail"
       variant="subtle"
       class="overflow-hidden"
-      :ui="{ description: 'mt-2' }"
+      :ui="{ root: 'rounded-2xl', description: 'mt-2' }"
     >
       <template #header>
         <div class="-mx-4 -mt-4 sm:-mx-6 sm:-mt-6 mb-4 flex h-28 items-center justify-center bg-primary/10">

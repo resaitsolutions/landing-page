@@ -27,25 +27,28 @@ defineProps<{
     :links="[{ label: 'Start learning', to: '/signup', trailingIcon: 'i-lucide-arrow-right', color: 'neutral' }]"
     variant="solid"
     orientation="horizontal"
+    :ui="{ root: 'rounded-3xl' }"
   >
     <template #body>
       <ul class="grid grid-cols-2 gap-4">
         <li
           v-for="benefit in benefits"
           :key="benefit.label"
-          class="flex items-center gap-2 text-sm text-inverted"
+          class="flex items-center gap-3 text-sm text-inverted"
         >
-          <UIcon
-            :name="benefit.icon"
-            class="size-5 shrink-0"
-          />
+          <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-white/15">
+            <UIcon
+              :name="benefit.icon"
+              class="size-3.5"
+            />
+          </span>
           {{ benefit.label }}
         </li>
       </ul>
     </template>
 
-    <div class="hidden lg:flex items-center justify-center rounded-xl bg-white/5 ring ring-white/10 p-8">
-      <div class="w-full max-w-xs rounded-lg bg-white/10 backdrop-blur p-4 flex flex-col gap-3">
+    <div class="hidden lg:flex items-center justify-center rounded-2xl bg-white/5 ring ring-white/10 p-8">
+      <div class="w-full max-w-xs rounded-2xl bg-white/10 backdrop-blur p-4 flex flex-col gap-3">
         <div class="flex items-center gap-2">
           <UIcon
             name="i-lucide-bot"
