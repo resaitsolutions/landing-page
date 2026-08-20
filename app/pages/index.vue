@@ -55,6 +55,14 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
     </UPageSection>
 
     <UPageSection
+      id="skills"
+      :title="page.skillBrowser.title"
+      :description="page.skillBrowser.description"
+    >
+      <SkillCategoryBrowser :categories="page.skillBrowser.categories" />
+    </UPageSection>
+
+    <UPageSection
       :title="page.features.title"
       :description="page.features.description"
     >
@@ -68,6 +76,12 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
         />
       </UPageGrid>
     </UPageSection>
+
+    <ConversionBand
+      :title="page.conversionBand.title"
+      :description="page.conversionBand.description"
+      :benefits="page.conversionBand.benefits"
+    />
 
     <UPageSection
       id="testimonials"
@@ -123,6 +137,10 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
           </UPageColumns>
         </template>
       </UCollapsible>
+    </UPageSection>
+
+    <UPageSection :title="page.popularSkills.title">
+      <PopularSkillsIndex :groups="page.popularSkills.groups" />
     </UPageSection>
 
     <USeparator />

@@ -1,21 +1,42 @@
 <script setup lang="ts">
 const columns = [{
-  label: 'Resources',
+  label: 'Product',
+  children: [{
+    label: 'Pricing',
+    to: '/pricing'
+  }, {
+    label: 'How it works',
+    to: '/#features'
+  }]
+}, {
+  label: 'Learn',
   children: [{
     label: 'Docs',
     to: '/docs'
+  }, {
+    label: 'Blog',
+    to: '/blog'
   }, {
     label: 'Changelog',
     to: '/changelog'
   }]
 }, {
-  label: 'Company',
+  label: 'Skills',
   children: [{
-    label: 'Pricing',
-    to: '/pricing'
+    label: 'Popular skills',
+    to: '/#skills'
   }, {
-    label: 'Blog',
-    to: '/blog'
+    label: 'Learner stories',
+    to: '/#testimonials'
+  }]
+}, {
+  label: 'Account',
+  children: [{
+    label: 'Log in',
+    to: '/login'
+  }, {
+    label: 'Sign up',
+    to: '/signup'
   }]
 }]
 
@@ -62,6 +83,7 @@ function onSubmit() {
                       size="xs"
                       color="neutral"
                       label="Subscribe"
+                      :loading="loading"
                     />
                   </template>
                 </UInput>
