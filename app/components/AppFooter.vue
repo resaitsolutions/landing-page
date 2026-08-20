@@ -2,35 +2,20 @@
 const columns = [{
   label: 'Resources',
   children: [{
-    label: 'Help center'
+    label: 'Docs',
+    to: '/docs'
   }, {
-    label: 'Docs'
-  }, {
-    label: 'Roadmap'
-  }, {
-    label: 'Changelog'
-  }]
-}, {
-  label: 'Platform',
-  children: [{
-    label: 'Courses'
-  }, {
-    label: 'For teams'
-  }, {
-    label: 'Certificates'
-  }, {
-    label: 'Become an instructor'
+    label: 'Changelog',
+    to: '/changelog'
   }]
 }, {
   label: 'Company',
   children: [{
-    label: 'About'
+    label: 'Pricing',
+    to: '/pricing'
   }, {
-    label: 'Pricing'
-  }, {
-    label: 'Careers'
-  }, {
-    label: 'Blog'
+    label: 'Blog',
+    to: '/blog'
   }]
 }]
 
@@ -46,6 +31,8 @@ function onSubmit() {
     title: 'Subscribed!',
     description: 'You\'ve been subscribed to our newsletter.'
   })
+
+  loading.value = false
 }
 </script>
 

@@ -13,6 +13,9 @@ useSeoMeta({
 })
 
 defineOgImage('Saas', { title, description })
+
+const featuredTestimonials = computed(() => page.value?.testimonials?.items?.slice(0, 4) ?? [])
+const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4) ?? [])
 </script>
 
 <template>
@@ -33,7 +36,7 @@ defineOgImage('Saas', { title, description })
         />
       </template>
 
-      <PromotionalVideo />
+      <ProductPreview />
     </UPageHero>
 
     <UPageSection
@@ -44,8 +47,10 @@ defineOgImage('Saas', { title, description })
       :orientation="section.orientation"
       :reverse="section.reverse"
       :features="section.features"
+      :ui="index === 1 ? { root: 'bg-elevated/50' } : {}"
     >
-      <ImagePlaceholder />
+      <AgentGuidanceVisual v-if="index === 0" />
+      <LearnerPathsVisual v-else />
     </UPageSection>
 
     <UPageSection
@@ -58,6 +63,7 @@ defineOgImage('Saas', { title, description })
           :key="index"
           v-bind="item"
           spotlight
+          :class="index === 0 ? 'md:col-span-2 md:row-span-2' : ''"
         />
       </UPageGrid>
     </UPageSection>
@@ -68,12 +74,13 @@ defineOgImage('Saas', { title, description })
       :title="page.testimonials.title"
       :description="page.testimonials.description"
     >
-      <UPageColumns class="xl:columns-4">
+      <UPageColumns class="lg:columns-2">
         <UPageCard
-          v-for="(testimonial, index) in page.testimonials.items"
+          v-for="(testimonial, index) in featuredTestimonials"
           :key="index"
           variant="subtle"
           :description="testimonial.quote"
+          :class="index === 0 ? 'font-serif text-lg' : ''"
           :ui="{ description: 'before:content-[open-quote] after:content-[close-quote]' }"
         >
           <template #footer>
@@ -84,6 +91,37 @@ defineOgImage('Saas', { title, description })
           </template>
         </UPageCard>
       </UPageColumns>
+
+      <UCollapsible
+        v-if="moreTestimonials.length"
+        class="mt-8 flex flex-col items-center gap-6"
+      >
+        <UButton
+          label="See more stories"
+          color="neutral"
+          variant="subtle"
+          trailing-icon="i-lucide-chevron-down"
+        />
+
+        <template #content>
+          <UPageColumns class="lg:columns-2">
+            <UPageCard
+              v-for="(testimonial, index) in moreTestimonials"
+              :key="index"
+              variant="subtle"
+              :description="testimonial.quote"
+              :ui="{ description: 'before:content-[open-quote] after:content-[close-quote]' }"
+            >
+              <template #footer>
+                <UUser
+                  v-bind="testimonial.user"
+                  size="lg"
+                />
+              </template>
+            </UPageCard>
+          </UPageColumns>
+        </template>
+      </UCollapsible>
     </UPageSection>
 
     <USeparator />

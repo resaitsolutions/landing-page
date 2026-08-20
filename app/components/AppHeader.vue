@@ -59,6 +59,7 @@ const items = computed(() => [{
         variant="ghost"
         to="/login"
         class="lg:hidden"
+        aria-label="Sign in"
       />
 
       <UButton
