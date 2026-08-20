@@ -39,10 +39,8 @@ const items = computed(() => [{
   <UHeader v-model:open="open">
     <template #left>
       <NuxtLink to="/">
-        <AppLogo class="w-auto h-6 shrink-0" />
+        <AppLogo />
       </NuxtLink>
-
-      <TemplateMenu />
     </template>
 
     <UNavigationMenu

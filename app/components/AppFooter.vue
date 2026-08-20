@@ -11,15 +11,15 @@ const columns = [{
     label: 'Changelog'
   }]
 }, {
-  label: 'Features',
+  label: 'Platform',
   children: [{
-    label: 'Affiliates'
+    label: 'Courses'
   }, {
-    label: 'Portal'
+    label: 'For teams'
   }, {
-    label: 'Jobs'
+    label: 'Certificates'
   }, {
-    label: 'Sponsors'
+    label: 'Become an instructor'
   }]
 }, {
   label: 'Company',
@@ -50,10 +50,7 @@ function onSubmit() {
 </script>
 
 <template>
-  <USeparator
-    icon="i-simple-icons-nuxtdotjs"
-    class="h-px"
-  />
+  <USeparator class="h-px" />
 
   <UFooter :ui="{ top: 'border-b border-default' }">
     <template #top>
@@ -90,35 +87,8 @@ function onSubmit() {
 
     <template #left>
       <p class="text-muted text-sm">
-        Built with Nuxt UI • © {{ new Date().getFullYear() }}
+        &copy; {{ new Date().getFullYear() }} Skilleate. All rights reserved.
       </p>
-    </template>
-
-    <template #right>
-      <UButton
-        to="https://go.nuxt.com/discord"
-        target="_blank"
-        icon="i-simple-icons-discord"
-        aria-label="Nuxt on Discord"
-        color="neutral"
-        variant="ghost"
-      />
-      <UButton
-        to="https://go.nuxt.com/x"
-        target="_blank"
-        icon="i-simple-icons-x"
-        aria-label="Nuxt on X"
-        color="neutral"
-        variant="ghost"
-      />
-      <UButton
-        to="https://github.com/nuxt-ui-templates/saas"
-        target="_blank"
-        icon="i-simple-icons-github"
-        aria-label="Nuxt UI on GitHub"
-        color="neutral"
-        variant="ghost"
-      />
     </template>
   </UFooter>
 </template>

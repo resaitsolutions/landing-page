@@ -1,82 +1,70 @@
-title: A plan for every need
-description: Our plans are designed to meet the requirements of both beginners and players. Get the right plan that suits you.
+title: A plan for every learner
+description: Whether you're exploring your first skill or investing in your next career move, there's a plan that fits how you learn.
 seo:
   title: Pricing
-  description: Choose the plan that's right for you.
+  description: Compare Skilleate's learning plans, from course access to AI-agent guidance and human-supervised mentoring for every kind of learner.
 navigation.icon: i-lucide-credit-card
 plans:
-  - title: Basic
-    description: A basic plan for individuals.
+  - title: Explorer
+    description: For trying out a new skill at your own pace.
     price:
       month: $9.9
       year: $99.9
     button:
-      label: Get Started
+      label: Start learning
       color: neutral
       variant: subtle
     features:
-      - 1 GB Storage
-      - 1 Email Account
-      - 1 Domain
-      - 1 Website
-      - 1 Database
-      - 1 SSL Certificate
-      - 1 Support Ticket
-  - title: Standard
-    description: A standard plan for small teams.
+      - Access to 1 course track at a time
+      - AI agent progress tracking
+      - Community discussion access
+      - Certificate on completion
+      - Email support
+  - title: Learner
+    description: For learners building a skill with regular guidance.
     price:
       month: $19.9
       year: $199.9
     highlight: true
     scale: true
     button:
-      label: Get Started
+      label: Start learning
     features:
-      - 10 GB Storage
-      - 10 Email Accounts
-      - 10 Domains
-      - 10 Websites
-      - 10 Databases
-      - 10 SSL Certificates
-      - 10 Support Tickets
-  - title: Premium
-    description: A premium plan for large teams.
+      - Access to the full course catalog
+      - AI agent progress tracking and personalized paths
+      - Priority agent guidance, human-reviewed
+      - Community discussion access
+      - Certificate on completion
+      - Priority support
+  - title: Professional
+    description: For upskilling with structured mentoring and career-ready outcomes.
     price:
       month: $29.9
       year: $299.9
     button:
-      label: Get Started
+      label: Start learning
       color: neutral
       variant: subtle
     features:
-      - 100 GB Storage
-      - 100 Email Accounts
-      - 100 Domains
-      - 100 Websites
-      - 100 Databases
-      - 100 SSL Certificates
-      - 100 Support Tickets
-logos:
-  title: Trusted by the world's best
-  icons:
-    - i-simple-icons-amazonaws
-    - i-simple-icons-heroku
-    - i-simple-icons-netlify
-    - i-simple-icons-vercel
-    - i-simple-icons-cloudflare
+      - Access to the full course catalog
+      - AI agent progress tracking and personalized paths
+      - Scheduled human-supervised mentoring sessions
+      - Career-track certificates
+      - Team progress dashboard (for teams of 5+)
+      - Dedicated support
 faq:
   title: Frequently asked questions
-  description: Culpa consectetur dolor pariatur commodo aliqua amet tempor nisi enim deserunt elit cillum.
+  description: Everything you need to know before you start learning with Skilleate.
   items:
-    - label: Is this a secure service?
-      content: Qui sunt nostrud aliquip reprehenderit enim proident veniam magna aliquip velit occaecat eiusmod nisi deserunt sunt.
-    - label: How can I cancel my subscription?
-      content: Consectetur irure Lorem nostrud adipisicing aliqua mollit Lorem sit officia magna eiusmod cupidatat.
-    - label: How does the free trial work?
-      content: Quis officia commodo magna eu qui aliquip duis.
+    - label: How does AI-agent guidance actually work?
+      content: Each learner is paired with an AI agent that tracks your progress through your courses, adjusts your pace and next steps, and answers questions as you go. It's guidance and mentoring, not a replacement for the course content itself.
+    - label: Are the agents supervised by real people?
+      content: Yes. A human team oversees quality, safety, and outcomes across the platform, and reviews anything your agent escalates. Agents guide day to day; humans stay accountable.
+    - label: Do I need any technical background to start?
+      content: No. Plans are built for both non-technical learners picking up a first skill and technical professionals upskilling, and your agent adjusts the path either way.
     - label: Can I switch plans later?
-      content: Dolore irure ullamco dolore eu occaecat magna eiusmod dolor aliqua culpa labore.
+      content: Yes. You can upgrade or downgrade at any time, and your progress and certificates carry over with you.
     - label: Do you offer refunds?
-      content: Duis mollit nostrud voluptate mollit Lorem dolore commodo veniam incididunt eiusmod.
-    - label: Do you offer support?
-      content: Aliqua sit nisi consequat pariatur Lorem minim irure qui.
+      content: Yes, within 14 days of your first payment if you haven't completed a course track. Contact support to request one.
+    - label: Can I cancel anytime?
+      content: Yes. Cancel from your account settings at any time. You'll keep access until the end of your current billing period.
