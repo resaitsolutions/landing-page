@@ -3,8 +3,8 @@ const colorMode = useColorMode()
 
 // theme-color meta requires a static hex (browsers cannot read CSS custom properties
 // here); mirrors the real computed --ui-bg dark value, itself already token-driven
-// via app.config.ts (neutral: 'slate'), not a duplicate source.
-const color = computed(() => colorMode.value === 'dark' ? '#020618' /* ds-allow-hardcode */ : 'white')
+// via app.config.ts (neutral: 'stone'), not a duplicate source.
+const color = computed(() => colorMode.value === 'dark' ? '#0c0a09' /* ds-allow-hardcode: mirrors Tailwind stone-950, the resolved --ui-bg dark value per app.config.ts neutral: 'stone' */ : 'white')
 
 useHead({
   meta: [

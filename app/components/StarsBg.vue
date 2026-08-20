@@ -153,13 +153,13 @@ const starLayers = computed(() => [
   -webkit-mask-image: linear-gradient(180deg,
       rgba(217, 217, 217, 0) 0%,
       rgba(217, 217, 217, 0.8) 25%,
-      #d9d9d9 50%,
+      rgba(217, 217, 217, 1) 50%,
       rgba(217, 217, 217, 0.8) 75%,
       rgba(217, 217, 217, 0) 100%);
   mask-image: linear-gradient(180deg,
       rgba(217, 217, 217, 0) 0%,
       rgba(217, 217, 217, 0.8) 25%,
-      #d9d9d9 50%,
+      rgba(217, 217, 217, 1) 50%,
       rgba(217, 217, 217, 0.8) 75%,
       rgba(217, 217, 217, 0) 100%);
   -webkit-mask-size: cover;
