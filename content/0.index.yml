@@ -1,150 +1,139 @@
-title: Ship Your [SaaS]{class="text-primary"} at light speed
-description: Build production-ready SaaS applications with Nuxt UI's powerful components, authentication flows, and enterprise features. The same component library trusted by the entire Nuxt ecosystem.
+title: Learn any skill, [guided by AI]{class="text-primary"}
+description: Skilleate pairs every learner with AI agents that personalize your path, track your progress, and keep you moving, all supervised by real humans. Learn at your own pace, with guidance that never sleeps.
 seo:
-  title: Nuxt SaaS Template
-  description: Create stunning, fast and production-ready SaaS applications with Nuxt UI. 100+ Vue components, authentication, dark mode, and enterprise features built on Tailwind CSS.
+  title: 'Skilleate: learning, guided by AI agents'
+  description: An online learning platform where AI agents guide your progress and mentoring, supervised by humans. For non-technical learners picking up a new skill, and professionals leveling up.
 navigation: false
 hero:
   links:
-    - label: Get started
+    - label: Start learning
       icon: i-lucide-arrow-right
       trailing: true
-      to: https://ui.nuxt.com/docs/getting-started/installation/nuxt
-      target: _blank
+      to: /signup
       size: xl
-    - label: Use this template
-      icon: i-simple-icons-github
+    - label: See how it works
+      icon: i-lucide-play
       size: xl
       color: neutral
       variant: subtle
-      to: https://github.com/nuxt-ui-templates/saas
-      target: _blank
+      to: '#features'
 sections:
-  - title: Powered by Nuxt UI Components
-    description: Access the complete Nuxt UI component library with 100+ beautifully styled, accessible, and customizable Vue components. Everything you need to build professional SaaS applications.
+  - title: Your own learning guide, always on
+    description: Every learner gets an AI agent that tracks progress, adapts the path when something isn't clicking, and nudges you back on track. A human team supervises quality and steps in whenever it matters.
     id: features
     orientation: horizontal
     features:
-      - name: 100+ UI Components
-        description: From buttons to modals, data tables to forms - all styled with Tailwind CSS and accessible out of the box.
-        icon: i-lucide-package
-      - name: Authentication Ready
-        description: Pre-built login, signup, and password reset flows. Just connect your backend and start onboarding users.
-        icon: i-lucide-shield
-      - name: TypeScript First
-        description: Full TypeScript support with auto-completion, type safety, and IntelliSense for every component and composable.
-        icon: i-lucide-code-2
-  - title: Built for Modern SaaS
-    description: Everything you need to launch and scale your SaaS. From beautiful marketing pages to complex dashboards, ship faster with production-ready patterns.
+      - name: Personalized progress tracking
+        description: Your agent sees exactly where you are in every course and adjusts pace, review, and next steps to fit how you actually learn.
+        icon: i-lucide-chart-line
+      - name: Guidance, not just content
+        description: Stuck on a concept? Your agent explains it a different way, points you to the right lesson, or flags it for a human mentor to review.
+        icon: i-lucide-compass
+      - name: Humans supervise every step
+        description: Agents guide day to day. A real team oversees quality, safety, and outcomes across the platform, so it's AI-assisted, never AI-alone.
+        icon: i-lucide-shield-check
+  - title: Built for every kind of learner
+    description: Whether you're picking up your first technical skill or a working professional sharpening one you already have, Skilleate meets you where you are.
     orientation: horizontal
     reverse: true
     features:
-      - name: Edge Performance
-        description: Optimized for Core Web Vitals with automatic code splitting, lazy loading, and SSR/SSG support.
-        icon: i-lucide-zap
-      - name: Dark Mode Ready
-        description: Automatic theme switching with smooth transitions. Respects system preferences and remembers user choice.
-        icon: i-lucide-moon
-      - name: Global Ready
-        description: Built-in i18n support for 50+ languages with RTL/LTR layouts and @nuxt/fonts integration.
-        icon: i-lucide-globe
+      - name: No experience required
+        description: Clear explanations, no jargon, and an agent that adjusts when something needs a simpler path.
+        icon: i-lucide-sprout
+      - name: Room to go deeper
+        description: Already technical? Skip the basics and let your agent route you straight to the advanced material and practice you need.
+        icon: i-lucide-trending-up
+      - name: Learn on your schedule
+        description: Pause, resume, and switch pace anytime. Your agent picks up right where you left off, whenever that is.
+        icon: i-lucide-clock
 features:
-  title: Everything You Need to Ship
-  description: Stop building from scratch. Focus on your unique features while Nuxt UI handles the foundations with battle-tested components and patterns.
+  title: Everything you need to actually finish
+  description: Most online courses are easy to start and easy to abandon. Skilleate's agents are built to keep you moving until you're done.
   items:
-    - title: Beautiful Design System
-      description: Semantic color aliases, comprehensive design tokens, and Tailwind Variants for consistent, customizable styling.
-      icon: i-lucide-palette
-    - title: Accessible by Default
-      description: Built on Reka UI for robust accessibility. WCAG compliant components that work for everyone, everywhere.
-      icon: i-lucide-accessibility
-    - title: Developer Experience
-      description: Auto-imports, hot module replacement, and comprehensive documentation. Build faster with less friction.
-      icon: i-lucide-terminal
-    - title: SEO Optimized
-      description: Server-side rendering, automatic meta tags, sitemap generation, and Open Graph images out of the box.
-      icon: i-lucide-search
-    - title: Production Ready
-      description: Error handling, loading states, form validation, and security best practices built into every component.
-      icon: i-lucide-check-circle
-    - title: Infinitely Customizable
-      description: Override any style with the ui prop, customize globally with AppConfig, or use Tailwind classes directly.
-      icon: i-lucide-settings
+    - title: Personalized learning paths
+      description: Your path adapts as you go, with more practice where you need it and less time on what you already know.
+      icon: i-lucide-route
+    - title: Always-available guidance
+      description: Ask a question at midnight or midday. Your agent responds, and a human reviews anything that needs one.
+      icon: i-lucide-message-circle-question
+    - title: Progress you can see
+      description: A clear dashboard shows what you've mastered, what's next, and how far you've come.
+      icon: i-lucide-gauge
+    - title: Skill certificates
+      description: Finish a path and get a certificate that shows exactly what you learned.
+      icon: i-lucide-award
+    - title: Human-reviewed quality
+      description: Every course and every agent interaction is supervised by our team, not left to run unchecked.
+      icon: i-lucide-user-check
+    - title: A skill for everyone
+      description: From your first technical concept to your next professional certification, find a path built for where you're starting from.
+      icon: i-lucide-users
 testimonials:
-  headline: Trusted by Developers
-  title: Join Thousands Building with Nuxt UI
-  description: See why developers choose Nuxt UI to ship their SaaS applications faster and with more confidence.
+  headline: Real learners, real progress
+  title: Why people choose to learn with Skilleate
+  description: A few examples of the kind of progress learners make when an AI agent is guiding the way, supervised by humans every step.
   items:
-    - quote: Nuxt UI transformed how we build. The component quality is exceptional - everything just works with perfect TypeScript support, accessibility, and dark mode built in.
+    - quote: I'd started three online courses before and never finished one. My agent noticed when I was stuck and changed how it explained things until it clicked. I actually finished this time.
       user:
-        name: Sarah Chen
-        description: CTO at TechScale Solutions
+        name: Priya Nair
+        description: Learning data analysis, career switcher
         avatar:
           src: https://i.pravatar.cc/120?img=1
-    - quote: We shipped our MVP in 2 weeks instead of 2 months. The authentication flows and form components saved us countless hours of development time.
+    - quote: I'm a developer picking up a completely different skill for fun, and the pacing was exactly right. Never too basic, never overwhelming.
       user:
-        name: Marcus Rodriguez
-        description: VP of Engineering at DataFlow
+        name: Marcus Bell
+        description: Software engineer, learning for a new hobby
         avatar:
           src: https://i.pravatar.cc/120?img=7
-    - quote: The design system with AppConfig is brilliant. We maintain brand consistency across all our products while leveraging the full component library.
+    - quote: I loved that a real person was behind the scenes. My agent handled the day-to-day questions, but when I flagged something confusing, it got escalated and someone actually looked at it.
       user:
-        name: David Kumar
-        description: Security Director at SecureStack
+        name: Diane Kessler
+        description: Upskilling in project management
         avatar:
           src: https://i.pravatar.cc/120?img=3
-    - quote: Perfect Lighthouse scores out of the box. Our Core Web Vitals improved dramatically just by switching to Nuxt UI components.
+    - quote: I have almost no free time, so being able to pause for two weeks and pick up exactly where I left off made all the difference.
       user:
-        name: Emily Zhang
-        description: Lead Architect at ScaleForce
+        name: Yusuf Demir
+        description: Learning to code, working parent
         avatar:
           src: https://i.pravatar.cc/120?img=5
-    - quote: The Tailwind Variants system makes customization so intuitive. We can override any component style while keeping the functionality intact.
+    - quote: The progress dashboard kept me honest. Seeing exactly what I'd mastered made it easy to keep going instead of losing track.
       user:
-        name: James Wilson
-        description: DevOps Lead at CloudPro
+        name: Elena Torres
+        description: Learning UX design
         avatar:
           src: https://i.pravatar.cc/120?img=8
-    - quote: From the SaaS template to production in days. The pre-built layouts, navigation, and content structure accelerated our launch.
+    - quote: I went in as a total beginner with no jargon and no assumptions. My agent explained everything at my level and only sped up once I was ready.
       user:
-        name: Lisa Patel
-        description: CEO at AutoScale
+        name: Grace Okonkwo
+        description: First technical course, non-technical background
         avatar:
           src: https://i.pravatar.cc/120?img=9
-    - quote: Reka UI foundation means accessibility is never an afterthought. We achieved WCAG compliance without any custom work.
+    - quote: As someone already in tech, I appreciated that I could skip straight to the advanced material instead of sitting through the basics again.
       user:
-        name: Michael Torres
-        description: Frontend Lead at AccessFirst
+        name: Daniel Ho
+        description: Senior engineer, deepening a specialization
         avatar:
           src: https://i.pravatar.cc/120?img=11
-    - quote: The documentation is outstanding. Every component has clear examples, and the community on Discord is incredibly helpful.
+    - quote: My agent flagged that I kept struggling with the same type of exercise and suggested extra practice before I even realized the pattern myself.
       user:
-        name: Rachel Kim
-        description: Performance Engineer at APIHub
+        name: Amara Boateng
+        description: Learning marketing analytics
         avatar:
           src: https://i.pravatar.cc/120?img=10
-    - quote: We replaced three different UI libraries with Nuxt UI. The consistency and quality across all components is unmatched.
+    - quote: Finishing with an actual certificate I could put on my resume made the whole thing feel worth it, not just something I dabbled in.
       user:
-        name: Thomas Weber
-        description: UI Architecture Lead at DesignScale
+        name: Tom Reilly
+        description: Career changer into IT support
         avatar:
           src: https://i.pravatar.cc/120?img=12
-    - quote: The integration with Nuxt modules is seamless. Color mode, fonts, icons - everything works together perfectly.
-      user:
-        name: Sophia Martinez
-        description: Integration Specialist at TechFlow
-        avatar:
-          src: https://i.pravatar.cc/120?img=14
 cta:
-  title: Ready to build an amazing SaaS?
-  description: Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today.
+  title: Ready to start learning?
+  description: Join learners of every background building real skills with an AI agent guiding the way and a human team behind it.
   links:
-    - label: Start building
-      to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt'
-      target: _blank
+    - label: Start learning free
+      to: '/signup'
       trailingIcon: i-lucide-arrow-right
-    - label: View on GitHub
-      to: 'https://github.com/nuxt-ui-templates/saas'
-      target: _blank
+    - label: View pricing
+      to: '/pricing'
       variant: subtle
-      icon: i-simple-icons-github

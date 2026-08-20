@@ -3,7 +3,7 @@ const colorMode = useColorMode()
 
 // theme-color meta requires a static hex (browsers cannot read CSS custom properties
 // here); mirrors the real computed --ui-bg dark value, itself already token-driven
-// via app.config.ts (neutral: 'slate') — not a duplicate source.
+// via app.config.ts (neutral: 'slate'), not a duplicate source.
 const color = computed(() => colorMode.value === 'dark' ? '#020618' /* ds-allow-hardcode */ : 'white')
 
 useHead({
@@ -21,7 +21,7 @@ useHead({
 })
 
 useSeoMeta({
-  titleTemplate: '%s - Nuxt SaaS template',
+  titleTemplate: '%s - Skilleate',
   twitterCard: 'summary_large_image'
 })
 
