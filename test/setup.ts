@@ -69,8 +69,15 @@ const indexFixture = {
   },
   features: { title: 'x', description: 'x', items: [] },
   testimonials: { headline: 'x', title: 'x', description: 'x', items: [] },
+  certPrep: {
+    title: 'Finish with a certificate that means something',
+    description: 'x',
+    cta: { label: 'See all certificate tracks', to: '/pricing' },
+    cards: [{ title: 'Data & Analytics', description: 'x', icon: 'i-lucide-chart-line' }]
+  },
   popularSkills: {
     title: 'Popular skills',
+    topSkill: { label: 'In demand right now', description: 'x', icon: 'i-lucide-trending-up', to: '#skills' },
     groups: [{ label: 'Development', skills: [{ label: 'Programming fundamentals', to: '/#skills' }] }]
   },
   cta: { title: 'x', description: 'x', links: [] }

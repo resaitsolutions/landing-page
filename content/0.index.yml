@@ -140,6 +140,22 @@ conversionBand:
       icon: i-lucide-chart-line
     - label: Human-reviewed quality
       icon: i-lucide-user-check
+certPrep:
+  title: Finish with a certificate that means something
+  description: Every track ends with a certificate that shows exactly what you learned, reviewed by our team before it's issued.
+  cta:
+    label: See all certificate tracks
+    to: /pricing
+  cards:
+    - title: Data & Analytics
+      description: Foundations through applied statistics and storytelling
+      icon: i-lucide-chart-line
+    - title: Programming
+      description: Fundamentals through code review practices
+      icon: i-lucide-code
+    - title: Career skills
+      description: Communication, project management, leadership
+      icon: i-lucide-briefcase
 testimonials:
   headline: Real learners, real progress
   title: Why people choose to learn with Skilleate
@@ -201,6 +217,11 @@ testimonials:
           src: https://i.pravatar.cc/120?img=12
 popularSkills:
   title: Popular skills
+  topSkill:
+    label: In demand right now
+    description: Data & Analytics tracks pair progress tracking with real practice sets, agent-guided from the first lesson.
+    icon: i-lucide-trending-up
+    to: '#skills'
   groups:
     - label: Development
       skills:

@@ -92,8 +92,24 @@ export const collections = {
           })
         )
       }),
+      certPrep: createBaseSchema().extend({
+        cta: createLinkSchema(),
+        cards: z.array(
+          z.object({
+            title: z.string().nonempty(),
+            description: z.string().nonempty(),
+            icon: z.string().nonempty().editor({ input: 'icon' })
+          })
+        )
+      }),
       popularSkills: z.object({
         title: z.string().nonempty(),
+        topSkill: z.object({
+          label: z.string().nonempty(),
+          description: z.string().nonempty(),
+          icon: z.string().nonempty().editor({ input: 'icon' }),
+          to: z.string().nonempty()
+        }),
         groups: z.array(
           z.object({
             label: z.string().nonempty(),

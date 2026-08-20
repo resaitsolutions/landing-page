@@ -60,6 +60,17 @@ function onSubmit() {
 <template>
   <USeparator class="h-px" />
 
+  <div class="border-b border-default bg-elevated/50">
+    <UContainer class="py-6 flex items-center justify-between gap-4">
+      <p class="text-sm font-medium text-highlighted">
+        Bringing agent-guided learning to your team? <NuxtLink
+          to="/pricing"
+          class="text-primary underline"
+        >See team plans</NuxtLink>.
+      </p>
+    </UContainer>
+  </div>
+
   <UFooter :ui="{ top: 'border-b border-default' }">
     <template #top>
       <UContainer>

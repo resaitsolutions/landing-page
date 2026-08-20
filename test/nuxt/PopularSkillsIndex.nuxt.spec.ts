@@ -48,4 +48,16 @@ describe('PopularSkillsIndex', () => {
     expect(navs[0]!.attributes('aria-label')).toBe('Development')
     expect(navs[1]!.attributes('aria-label')).toBe('Design')
   })
+
+  it('renders the top-skill callout when provided, with no fabricated statistic', async () => {
+    const groups = [{ label: 'Development', skills: [{ label: 'x', to: '/#skills' }] }]
+    const topSkill = { label: 'In demand right now', description: 'Real, non-numeric description', icon: 'i-lucide-trending-up', to: '#skills' }
+
+    const component = await mountSuspended(PopularSkillsIndex, {
+      props: { groups, topSkill }
+    })
+
+    expect(component.text()).toContain(topSkill.label)
+    expect(component.text()).toContain(topSkill.description)
+  })
 })
