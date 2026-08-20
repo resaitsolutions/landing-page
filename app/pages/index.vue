@@ -41,6 +41,7 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
 
     <UPageSection
       v-for="(section, index) in page.sections"
+      :id="section.id"
       :key="index"
       :title="section.title"
       :description="section.description"

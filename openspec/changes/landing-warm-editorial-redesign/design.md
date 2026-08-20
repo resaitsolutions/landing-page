@@ -188,14 +188,20 @@ just fixing it.
   Low risk — this is Nuxt UI's stated, current (v4.10) behavior,
   confirmed via official docs read during this design pass, not
   inferred.
-- **`OgImage/Saas.takumi.vue` renders server-side via `@takumi-rs/core`**,
-  a separate rendering pipeline from the live site. It already uses
-  semantic classes (`text-primary-400`, `bg-primary-400`) rather than
-  hardcoded hex, so the new terracotta values should flow through
-  automatically — but this needs an explicit visual check of the
-  generated OG image in verification (screenshot), not just an
-  assumption that semantic classes "just work" through a separate
-  renderer.
+- **`OgImage/Saas.takumi.vue` renders through `@takumi-rs/core`'s own
+  compiled Rust Tailwind-class resolver, confirmed during
+  implementation to NOT read the app's live `@theme` CSS or
+  `app.config.ts`** — this risk materialized as a real bug: the
+  `text-primary-400`/`bg-primary-400` classes rendered the accent as
+  near-invisible black (resolving against Takumi's static built-in
+  default-Tailwind palette, which has no `terracotta`) instead of the
+  new color. Fixed by replacing those two classes with a documented
+  `ds-allow-hardcode` exception (`text-[#e5946f]`/`bg-[#e5946f]`,
+  matching the verified terracotta-400 value) — the correct workaround
+  for a renderer with no theme-passthrough API (confirmed via
+  `@takumi-rs/core`'s `Renderer` type definitions: it accepts only
+  fonts/images, no color/theme config). Verified live via browser
+  screenshot of the regenerated OG image before/after the fix.
 - **Scope discipline.** Two small defects (dead anchor, raw hex) were
   folded into this token-focused change because they were discovered
   while re-touching the same visual surfaces the color change already

@@ -6,6 +6,21 @@
 @theme static {
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'Lora', Georgia, Cambria, 'Times New Roman', serif;
+
+  /* Warm editorial identity accent: OKLCH-generated, WCAG 2.2 AA
+     verified light+dark (openspec/changes/landing-warm-editorial-
+     redesign/design.md). Registered as ui.colors.primary below. */
+  --color-terracotta-50: #fff4ef;
+  --color-terracotta-100: #ffe9de;
+  --color-terracotta-200: #fed3c0;
+  --color-terracotta-300: #f4b79c;
+  --color-terracotta-400: #e5946f;
+  --color-terracotta-500: #ce6e40;
+  --color-terracotta-600: #b55422;
+  --color-terracotta-700: #913e10;
+  --color-terracotta-800: #6f300e;
+  --color-terracotta-900: #51240e;
+  --color-terracotta-950: #2d1205;
 }
 
 .dark {
