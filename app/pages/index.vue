@@ -13,9 +13,6 @@ useSeoMeta({
 })
 
 defineOgImage('Saas', { title, description })
-
-const featuredTestimonials = computed(() => page.value?.testimonials?.items?.slice(0, 4) ?? [])
-const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4) ?? [])
 </script>
 
 <template>
@@ -55,6 +52,14 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
     </UPageSection>
 
     <UPageSection
+      id="skills"
+      :title="page.skillBrowser.title"
+      :description="page.skillBrowser.description"
+    >
+      <SkillCategoryBrowser :categories="page.skillBrowser.categories" />
+    </UPageSection>
+
+    <UPageSection
       :title="page.features.title"
       :description="page.features.description"
     >
@@ -69,60 +74,56 @@ const moreTestimonials = computed(() => page.value?.testimonials?.items?.slice(4
       </UPageGrid>
     </UPageSection>
 
+    <ConversionBand
+      :title="page.conversionBand.title"
+      :description="page.conversionBand.description"
+      :benefits="page.conversionBand.benefits"
+    />
+
     <UPageSection
       id="testimonials"
       :headline="page.testimonials.headline"
       :title="page.testimonials.title"
       :description="page.testimonials.description"
     >
-      <UPageColumns class="lg:columns-2">
+      <UCarousel
+        v-slot="{ item }"
+        :items="page.testimonials.items"
+        arrows
+        class="w-full"
+        :ui="{ item: 'basis-full sm:basis-1/2 lg:basis-1/3' }"
+      >
         <UPageCard
-          v-for="(testimonial, index) in featuredTestimonials"
-          :key="index"
           variant="subtle"
-          :description="testimonial.quote"
-          :class="index === 0 ? 'font-serif text-lg' : ''"
+          :description="item.quote"
+          class="h-full"
           :ui="{ description: 'before:content-[open-quote] after:content-[close-quote]' }"
         >
           <template #footer>
             <UUser
-              v-bind="testimonial.user"
+              v-bind="item.user"
               size="lg"
             />
           </template>
         </UPageCard>
-      </UPageColumns>
+      </UCarousel>
+    </UPageSection>
 
-      <UCollapsible
-        v-if="moreTestimonials.length"
-        class="mt-8 flex flex-col items-center gap-6"
-      >
-        <UButton
-          label="See more stories"
-          color="neutral"
-          variant="subtle"
-          trailing-icon="i-lucide-chevron-down"
-        />
+    <CertPrepBand
+      :title="page.certPrep.title"
+      :description="page.certPrep.description"
+      :cta="page.certPrep.cta"
+      :cards="page.certPrep.cards"
+    />
 
-        <template #content>
-          <UPageColumns class="lg:columns-2">
-            <UPageCard
-              v-for="(testimonial, index) in moreTestimonials"
-              :key="index"
-              variant="subtle"
-              :description="testimonial.quote"
-              :ui="{ description: 'before:content-[open-quote] after:content-[close-quote]' }"
-            >
-              <template #footer>
-                <UUser
-                  v-bind="testimonial.user"
-                  size="lg"
-                />
-              </template>
-            </UPageCard>
-          </UPageColumns>
-        </template>
-      </UCollapsible>
+    <UPageSection
+      id="popular-skills"
+      :title="page.popularSkills.title"
+    >
+      <PopularSkillsIndex
+        :groups="page.popularSkills.groups"
+        :top-skill="page.popularSkills.topSkill"
+      />
     </UPageSection>
 
     <USeparator />

@@ -1,21 +1,42 @@
 <script setup lang="ts">
 const columns = [{
-  label: 'Resources',
+  label: 'Product',
+  children: [{
+    label: 'Pricing',
+    to: '/pricing'
+  }, {
+    label: 'How it works',
+    to: '/#features'
+  }]
+}, {
+  label: 'Learn',
   children: [{
     label: 'Docs',
     to: '/docs'
+  }, {
+    label: 'Blog',
+    to: '/blog'
   }, {
     label: 'Changelog',
     to: '/changelog'
   }]
 }, {
-  label: 'Company',
+  label: 'Skills',
   children: [{
-    label: 'Pricing',
-    to: '/pricing'
+    label: 'Popular skills',
+    to: '/#skills'
   }, {
-    label: 'Blog',
-    to: '/blog'
+    label: 'Learner stories',
+    to: '/#testimonials'
+  }]
+}, {
+  label: 'Account',
+  children: [{
+    label: 'Log in',
+    to: '/login'
+  }, {
+    label: 'Sign up',
+    to: '/signup'
   }]
 }]
 
@@ -38,6 +59,17 @@ function onSubmit() {
 
 <template>
   <USeparator class="h-px" />
+
+  <div class="border-b border-default bg-elevated/50">
+    <UContainer class="py-6 flex items-center justify-between gap-4">
+      <p class="text-sm font-medium text-highlighted">
+        Bringing agent-guided learning to your team? <NuxtLink
+          to="/pricing"
+          class="text-primary underline"
+        >See team plans</NuxtLink>.
+      </p>
+    </UContainer>
+  </div>
 
   <UFooter :ui="{ top: 'border-b border-default' }">
     <template #top>
@@ -62,6 +94,7 @@ function onSubmit() {
                       size="xs"
                       color="neutral"
                       label="Subscribe"
+                      :loading="loading"
                     />
                   </template>
                 </UInput>

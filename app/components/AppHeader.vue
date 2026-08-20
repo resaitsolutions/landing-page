@@ -20,6 +20,29 @@ watch(searchOpen, (value) => {
 })
 
 const items = computed(() => [{
+  label: 'Explore',
+  children: [{
+    label: 'Data & Analytics',
+    description: 'Data analysis, statistics, and storytelling tracks.',
+    icon: 'i-lucide-chart-line',
+    to: '/#skills'
+  }, {
+    label: 'Programming',
+    description: 'From fundamentals to code review practices.',
+    icon: 'i-lucide-code',
+    to: '/#skills'
+  }, {
+    label: 'Design',
+    description: 'Design fundamentals through systems thinking.',
+    icon: 'i-lucide-palette',
+    to: '/#skills'
+  }, {
+    label: 'Career skills',
+    description: 'Communication, project management, leadership.',
+    icon: 'i-lucide-briefcase',
+    to: '/#skills'
+  }]
+}, {
   label: 'Docs',
   to: '/docs',
   active: isDocs.value

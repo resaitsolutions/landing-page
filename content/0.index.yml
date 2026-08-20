@@ -68,6 +68,94 @@ features:
     - title: A skill for everyone
       description: From your first technical concept to your next professional certification, find a path built for where you're starting from.
       icon: i-lucide-users
+skillBrowser:
+  title: Skills to build your career and life
+  description: From technical foundations to career skills, find a track that fits where you're starting from.
+  categories:
+    - label: Data & Analytics
+      tracks:
+        - title: Data analysis foundations
+          level: Foundational
+          detail: Learn to explore, clean, and interpret data with an agent guiding every exercise.
+          icon: i-lucide-chart-line
+        - title: Applied statistics
+          level: Intermediate
+          detail: Build the statistical intuition behind real data decisions, with practice sets adapted to your pace.
+          icon: i-lucide-sigma
+        - title: Data storytelling
+          level: Intermediate
+          detail: Turn analysis into a narrative stakeholders act on, with feedback from your agent and a human mentor.
+          icon: i-lucide-presentation
+    - label: Programming
+      tracks:
+        - title: Programming fundamentals
+          level: Foundational
+          detail: Start from zero with an agent that explains every concept a different way until it clicks.
+          icon: i-lucide-code
+        - title: Building your first project
+          level: Intermediate
+          detail: Apply what you've learned to a real project, with guidance whenever you get stuck.
+          icon: i-lucide-hammer
+        - title: Code review practices
+          level: Advanced
+          detail: Sharpen how you read and critique code, with a human mentor reviewing your feedback.
+          icon: i-lucide-git-pull-request
+    - label: Design
+      tracks:
+        - title: Design fundamentals
+          level: Foundational
+          detail: Learn the principles behind interfaces people actually enjoy using.
+          icon: i-lucide-palette
+        - title: Prototyping workflows
+          level: Intermediate
+          detail: Move from idea to testable prototype, with your agent tracking what to refine next.
+          icon: i-lucide-layout-template
+        - title: Design systems thinking
+          level: Advanced
+          detail: Build for consistency at scale, with human-reviewed feedback on your system decisions.
+          icon: i-lucide-component
+    - label: Career skills
+      tracks:
+        - title: Communicating with confidence
+          level: Foundational
+          detail: Practice explaining ideas clearly, with your agent flagging what's landing and what isn't.
+          icon: i-lucide-mic
+        - title: Project management basics
+          level: Foundational
+          detail: Learn to plan, track, and deliver work, with guidance adapted to your current role.
+          icon: i-lucide-kanban
+        - title: Leading a team
+          level: Advanced
+          detail: Build the skills to guide others, with a human mentor reviewing your progress along the way.
+          icon: i-lucide-users
+conversionBand:
+  title: Ready to reimagine how you learn?
+  description: Get an AI agent guiding your progress, with a human team behind every step.
+  benefits:
+    - label: Learn any skill, guided
+      icon: i-lucide-compass
+    - label: Earn a certificate
+      icon: i-lucide-award
+    - label: Track your progress
+      icon: i-lucide-chart-line
+    - label: Human-reviewed quality
+      icon: i-lucide-user-check
+certPrep:
+  title: Finish with a certificate that means something
+  description: Every track ends with a certificate that shows exactly what you learned, reviewed by our team before it's issued.
+  cta:
+    label: See all certificate tracks
+    to: /pricing
+  cards:
+    - title: Data & Analytics
+      description: Foundations through applied statistics and storytelling
+      icon: i-lucide-chart-line
+    - title: Programming
+      description: Fundamentals through code review practices
+      icon: i-lucide-code
+    - title: Career skills
+      description: Communication, project management, leadership
+      icon: i-lucide-briefcase
 testimonials:
   headline: Real learners, real progress
   title: Why people choose to learn with Skilleate
@@ -127,6 +215,46 @@ testimonials:
         description: Career changer into IT support
         avatar:
           src: https://i.pravatar.cc/120?img=12
+popularSkills:
+  title: Popular skills
+  topSkill:
+    label: In demand right now
+    description: Data & Analytics tracks pair progress tracking with real practice sets, agent-guided from the first lesson.
+    icon: i-lucide-trending-up
+    to: '#skills'
+  groups:
+    - label: Development
+      skills:
+        - label: Programming fundamentals
+          to: '#skills'
+        - label: Building your first project
+          to: '#skills'
+        - label: Code review practices
+          to: '#skills'
+    - label: Design
+      skills:
+        - label: Design fundamentals
+          to: '#skills'
+        - label: Prototyping workflows
+          to: '#skills'
+        - label: Design systems thinking
+          to: '#skills'
+    - label: Data & Analytics
+      skills:
+        - label: Data analysis foundations
+          to: '#skills'
+        - label: Applied statistics
+          to: '#skills'
+        - label: Data storytelling
+          to: '#skills'
+    - label: Career skills
+      skills:
+        - label: Communicating with confidence
+          to: '#skills'
+        - label: Project management basics
+          to: '#skills'
+        - label: Leading a team
+          to: '#skills'
 cta:
   title: Ready to start learning?
   description: Join learners of every background building real skills with an AI agent guiding the way and a human team behind it.
