@@ -5,6 +5,7 @@
 
 @theme static {
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Lora', Georgia, Cambria, 'Times New Roman', serif;
 }
 
 .dark {

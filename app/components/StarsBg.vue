@@ -180,4 +180,10 @@ const starLayers = computed(() => [
     transform: translateY(-2000px); /* ds-allow-hardcode: canvas travel distance for the star-field effect, not layout spacing */
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .star-layer {
+    animation: none;
+  }
+}
 </style>

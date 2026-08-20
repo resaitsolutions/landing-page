@@ -16,7 +16,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="absolute w-full -top-px transition-all text-primary shrink-0"
+    class="hero-background absolute w-full -top-px transition-all text-primary shrink-0"
     :class="[
       isLoading ? 'animate-pulse' : (appear ? '' : 'opacity-0'),
       appeared ? 'duration-300': 'duration-1000'
@@ -86,3 +86,12 @@ onMounted(() => {
     </svg>
   </div>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .hero-background {
+    opacity: 1 !important;
+    transition-duration: 0s !important; /* ds-allow-hardcode: matches tokens/motion.json duration.instant (0ms), the documented reduced-motion fallback value */
+  }
+}
+</style>

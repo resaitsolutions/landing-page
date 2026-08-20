@@ -14,17 +14,6 @@ useSeoMeta({
 defineOgImage('Saas', { title, description })
 
 const isYearly = ref('0')
-
-const items = ref([
-  {
-    label: 'Monthly',
-    value: '0'
-  },
-  {
-    label: 'Yearly',
-    value: '1'
-  }
-])
 </script>
 
 <template>
@@ -34,18 +23,22 @@ const items = ref([
       :description="page.description"
     >
       <template #links>
-        <UTabs
-          v-model="isYearly"
-          :items="items"
-          color="neutral"
-          size="xs"
-          class="w-48"
-          :ui="{
-            list: 'ring ring-accented rounded-full',
-            indicator: 'rounded-full',
-            trigger: 'w-1/2'
-          }"
-        />
+        <UFieldGroup size="lg">
+          <UButton
+            label="Monthly"
+            :color="isYearly === '0' ? 'primary' : 'neutral'"
+            :variant="isYearly === '0' ? 'solid' : 'outline'"
+            :aria-pressed="isYearly === '0'"
+            @click="isYearly = '0'"
+          />
+          <UButton
+            label="Yearly"
+            :color="isYearly === '1' ? 'primary' : 'neutral'"
+            :variant="isYearly === '1' ? 'solid' : 'outline'"
+            :aria-pressed="isYearly === '1'"
+            @click="isYearly = '1'"
+          />
+        </UFieldGroup>
       </template>
     </UPageHero>
 
